@@ -1,13 +1,19 @@
 import {StyleSheet, Image, View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 
-export default function Login() {
+export default function Login({navigation} : any) {
   return (
     <View style={styles.body}>
       <Image source={require('../public/logo.png')} style={styles.logo} />
       <View style={styles.bottom}>
-        <Text style={styles.text}>Sign in with your work or school account</Text>
-        <TouchableOpacity style={styles.button}>
+        <Text style={styles.text}>
+          Sign in with your work or school account
+        </Text>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => {
+            navigation.navigate('home-screen');
+          }}>
           <Image source={require('../public/microsoft.png')} />
           <Text style={styles.text_button}>Login with microsoft account</Text>
         </TouchableOpacity>
@@ -32,7 +38,7 @@ const styles = StyleSheet.create({
   bottom: {
     gap: 10,
     width: '75%',
-    alignItems: 'center'
+    alignItems: 'center',
   },
 
   text: {
