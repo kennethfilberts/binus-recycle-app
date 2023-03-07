@@ -6,10 +6,10 @@ export default function Login() {
     <View style={styles.body}>
       <Image source={require('../public/logo.png')} style={styles.logo} />
       <View style={styles.bottom}>
-        <Text>Sign in with your work or school account</Text>
+        <Text style={styles.text}>Sign in with your work or school account</Text>
         <TouchableOpacity style={styles.button}>
           <Image source={require('../public/microsoft.png')} />
-          <Text>Login with microsoft account</Text>
+          <Text style={styles.text_button}>Login with microsoft account</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -31,14 +31,24 @@ const styles = StyleSheet.create({
 
   bottom: {
     gap: 10,
+    width: '75%',
+    alignItems: 'center'
+  },
+
+  text: {
+    color: 'black',
+  },
+
+  text_button: {
+    color: '#676767',
   },
 
   button: {
     gap: 10,
     height: 40,
-    backgroundColor: '#BBB98E',
-    opacity: 0.7,
-    borderRadius: 10,
+    width: '100%',
+    backgroundColor: '#ECEBC9',
+    borderRadius: 5,
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',

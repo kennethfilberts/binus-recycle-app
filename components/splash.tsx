@@ -1,7 +1,11 @@
 import {StyleSheet, Text, View, Image} from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 
-export default function Splash() {
+export default function Splash({navigation} : any) {
+  useEffect(() => {
+    setTimeout(() => {navigation.replace('login')}, 2000)
+  }, []);
+
   return (
     <View style={styles.body}>
       <Image source={require('../public/logo.png')} style={styles.logo}></Image>
