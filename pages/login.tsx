@@ -1,7 +1,15 @@
 import {StyleSheet, Image, View, Text, TouchableOpacity} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 
-export default function Login({navigation} : any) {
+export default function Login({navigation}: any) {
+  const [login, setLogin] = useState(false);
+  const onPressHandler = () => {
+    if (login == false) {
+      navigation.replace('home-screen');
+      setLogin(true);
+    }
+  };
+
   return (
     <View style={styles.body}>
       <Image source={require('../public/logo.png')} style={styles.logo} />
@@ -11,9 +19,7 @@ export default function Login({navigation} : any) {
         </Text>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => {
-            navigation.navigate('home-screen');
-          }}>
+          onPress={onPressHandler}>
           <Image source={require('../public/microsoft.png')} />
           <Text style={styles.text_button}>Login with microsoft account</Text>
         </TouchableOpacity>
