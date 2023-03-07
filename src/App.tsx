@@ -1,20 +1,13 @@
 import React from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import Splash from '../components/splash';
+import Login from '../components/login';
 
 function App(): JSX.Element {
-  const emote = ":)";
-
   return (
     <View style={styles.body}>
-      <Text style={styles.text}>Hello Gais {emote}</Text>
+      {/* <Splash /> */}
+      {/* <Login /> */}
     </View>
   );
 }
@@ -29,7 +22,7 @@ const styles = StyleSheet.create({
   text: {
     color: 'black',
     fontSize: 24,
-  }
+  },
 });
 
 export default App;
