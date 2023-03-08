@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, Image} from 'react-native';
 import Splash from '../pages/splash';
 import Login from '../pages/login';
 import Home from '../pages/home';
 import Scan from '../pages/scan';
 import Redeem from '../pages/redeem';
+import User from '../pages/user';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
@@ -91,10 +92,31 @@ function App(): JSX.Element {
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="splash"
-        screenOptions={{headerShown: false}}>
-        <Stack.Screen name="splash" component={Splash} />
-        <Stack.Screen name="login" component={Login} />
-        <Stack.Screen name="home-screen" component={HomeScreen} />
+        screenOptions={{
+          headerTitleAlign: 'center',
+          headerStyle: {backgroundColor: '#FFFCF5'},
+          headerTitleStyle: {
+            fontSize: 23,
+            fontWeight: 'bold',
+          },
+          headerBackImage: () => (<Image source={require('../public/back-icon.png')} style={styles.back}/>)
+        }}>
+        <Stack.Screen
+          name="splash"
+          component={Splash}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="login"
+          component={Login}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="home-screen"
+          component={HomeScreen}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen name="Account" component={User} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -111,6 +133,10 @@ const styles = StyleSheet.create({
     height: 70,
     marginBottom: 30,
   },
+
+  back: {
+    marginLeft: 30,
+  }
 });
 
 export default App;
