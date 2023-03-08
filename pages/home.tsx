@@ -1,9 +1,17 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
+import {useState} from 'react';
 
-export default function Home({navigation} : any) {
+export default function Home({navigation}: any) {
   let name = 'Binusian';
-  let point = 12;
+  const [point, setPoint] = useState(12);
+  const [plastic, setPlastic] = useState(100);
+  const [glass, setGlass] = useState(100);
+  const [metal, setMetal] = useState(100);
+
+  function calculatePoints() {
+
+  }
 
   return (
     <View style={styles.body}>
@@ -15,7 +23,18 @@ export default function Home({navigation} : any) {
         </View>
 
         <View>
-          <TouchableOpacity style={styles.user} onPress={() => {navigation.navigate('Account')}}/>
+          <TouchableOpacity
+            style={styles.user}
+            onPress={() => {
+              navigation.navigate('Account', {
+                name: name,
+                point: point,
+                glass: glass,
+                metal: metal,
+                plastic: plastic,
+              });
+            }}
+          />
         </View>
       </View>
     </View>
@@ -38,7 +57,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  text_box:{
+  text_box: {
     gap: 6,
   },
 

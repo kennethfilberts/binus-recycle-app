@@ -99,7 +99,12 @@ function App(): JSX.Element {
             fontSize: 23,
             fontWeight: 'bold',
           },
-          headerBackImage: () => (<Image source={require('../public/back-icon.png')} style={styles.back}/>)
+          headerBackImage: () => (
+            <Image
+              source={require('../public/back-icon.png')}
+              style={styles.back}
+            />
+          ),
         }}>
         <Stack.Screen
           name="splash"
@@ -136,7 +141,7 @@ const styles = StyleSheet.create({
 
   back: {
     marginLeft: 30,
-  }
+  },
 });
 
 export default App;
