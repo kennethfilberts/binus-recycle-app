@@ -4,14 +4,10 @@ import {useState} from 'react';
 
 export default function Home({navigation}: any) {
   let name = 'Binusian';
-  const [point, setPoint] = useState(12);
-  const [plastic, setPlastic] = useState(100);
-  const [glass, setGlass] = useState(100);
-  const [metal, setMetal] = useState(100);
-
-  function calculatePoints() {
-
-  }
+  const [point, setPoint] = useState(100);
+  const [plastic, setPlastic] = useState(2);
+  const [glass, setGlass] = useState(3);
+  const [metal, setMetal] = useState(0.5);
 
   return (
     <View style={styles.body}>

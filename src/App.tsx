@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Image} from 'react-native';
+import {StyleSheet, Image, TouchableOpacity} from 'react-native';
 import Splash from '../pages/splash';
 import Login from '../pages/login';
 import Home from '../pages/home';
@@ -11,7 +11,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-function HomeScreen() {
+function HomeScreen({navigation}: any) {
   const Tab = createBottomTabNavigator();
 
   return (
@@ -47,10 +47,15 @@ function HomeScreen() {
         options={{
           tabBarIcon: ({focused}) => {
             return (
-              <Image
-                source={require('../public/scan-icon.png')}
-                style={styles.scan}
-              />
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate('Scan');
+                }}>
+                <Image
+                  source={require('../public/scan-icon.png')}
+                  style={styles.scan}
+                />
+              </TouchableOpacity>
             );
           },
           tabBarShowLabel: false,
@@ -122,6 +127,7 @@ function App(): JSX.Element {
           options={{headerShown: false}}
         />
         <Stack.Screen name="Account" component={User} />
+        <Stack.Screen name="Scan" component={Scan} />
       </Stack.Navigator>
     </NavigationContainer>
   );
