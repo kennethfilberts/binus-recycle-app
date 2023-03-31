@@ -1,8 +1,15 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import React from 'react';
+import {SummaryCard} from './components/SummaryCard';
 
 export default function User({route}: any) {
   const {name, point, plastic, glass, metal} = route.params;
+
+  const itemUrl = {
+    plastic: require('../../assets/plastic.png'),
+    glass: require('../../assets/glass.png'),
+    metal: require('../../assets/metal.png'),
+  };
 
   return (
     <View style={styles.body}>
@@ -14,48 +21,51 @@ export default function User({route}: any) {
 
       <TouchableOpacity style={styles.touchable}>
         <View style={styles.touchable_sign}>
-          <Image source={require('../public/edit.png')} style={styles.icon} />
+          <Image
+            source={require('../../assets/edit.png')}
+            style={styles.icon}
+          />
           <Text style={styles.touchable_text}>Change Profile</Text>
         </View>
 
         <Image
-          source={require('../public/next-icon.png')}
+          source={require('../../assets/next-icon.png')}
           style={styles.icon}
         />
       </TouchableOpacity>
 
       <View style={styles.summary}>
         <Text style={styles.summary_text}>Summary</Text>
-
         <View style={styles.box_summary}>
-          <View style={styles.box_item}>
-            <Image source={require('../public/plastic.png')} />
-            <Text style={styles.ammount_text}>{plastic} kg</Text>
-            <Text style={styles.item_text}>Plastic</Text>
-          </View>
-
-          <View style={styles.box_item}>
-            <Image source={require('../public/glass.png')} />
-            <Text style={styles.ammount_text}>{glass} kg</Text>
-            <Text style={styles.item_text}>Glass</Text>
-          </View>
-
-          <View style={styles.box_item}>
-            <Image source={require('../public/metal.png')} />
-            <Text style={styles.ammount_text}>{metal} kg</Text>
-            <Text style={styles.item_text}>Metal</Text>
-          </View>
+          <SummaryCard
+            imageUrl={itemUrl.plastic}
+            itemAmount={plastic}
+            itemName="Plastic"
+          />
+          <SummaryCard
+            imageUrl={itemUrl.glass}
+            itemAmount={glass}
+            itemName="Glass"
+          />
+          <SummaryCard
+            imageUrl={itemUrl.metal}
+            itemAmount={metal}
+            itemName="Metal"
+          />
         </View>
       </View>
 
       <TouchableOpacity style={styles.touchable}>
         <View style={styles.touchable_sign}>
-          <Image source={require('../public/logout.png')} style={styles.icon} />
+          <Image
+            source={require('../../assets/logout.png')}
+            style={styles.icon}
+          />
           <Text style={styles.touchable_text}>Sign Out</Text>
         </View>
 
         <Image
-          source={require('../public/next-icon.png')}
+          source={require('../../assets/next-icon.png')}
           style={styles.icon}
         />
       </TouchableOpacity>
@@ -140,27 +150,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 19,
-  },
-
-  box_item: {
-    height: 150,
-    width: 90,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#D6DFCC',
-    borderRadius: 10,
-  },
-
-  ammount_text: {
-    color: 'black',
-    marginTop: 10,
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-
-  item_text: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 15,
   },
 });

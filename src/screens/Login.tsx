@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 export default function Login({navigation}: any) {
   const [login, setLogin] = useState(false);
   const onPressHandler = () => {
-    if (login == false) {
+    if (login === false) {
       navigation.replace('home-screen');
       setLogin(true);
     }
@@ -12,15 +12,13 @@ export default function Login({navigation}: any) {
 
   return (
     <View style={styles.body}>
-      <Image source={require('../public/logo.png')} style={styles.logo} />
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
       <View style={styles.bottom}>
         <Text style={styles.text}>
           Sign in with your work or school account
         </Text>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={onPressHandler}>
-          <Image source={require('../public/microsoft.png')} />
+        <TouchableOpacity style={styles.button} onPress={onPressHandler}>
+          <Image source={require('../assets/microsoft.png')} />
           <Text style={styles.text_button}>Login with microsoft account</Text>
         </TouchableOpacity>
       </View>
