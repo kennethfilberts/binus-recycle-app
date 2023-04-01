@@ -41,5 +41,6 @@ const styles = StyleSheet.create({
   cardText: {
     textAlign: 'center',
     fontFamily: 'Poppins-Medium',
+    color: 'black',
   },
 });

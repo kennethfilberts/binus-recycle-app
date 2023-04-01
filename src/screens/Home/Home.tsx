@@ -96,15 +96,14 @@ const styles = StyleSheet.create({
 
   morning: {
     color: 'white',
-    fontWeight: 'bold',
-    fontSize: 16,
-    fontFamily: 'Poppins-Semibold',
+    fontSize: 14,
+    fontFamily: 'Poppins-SemiBold',
   },
 
   point: {
     color: 'white',
-    fontWeight: 'bold',
     fontSize: 20,
+    fontFamily: 'Poppins-Bold',
   },
 
   user: {
@@ -120,12 +119,16 @@ const styles = StyleSheet.create({
     height: '6%',
     borderRadius: 10,
     justifyContent: 'center',
+    shadowColor: '#75797d',
+    shadowOpacity: 0.2,
+    elevation: 10,
   },
 
   quoteText: {
     color: '#FFFFFF',
     textAlign: 'center',
     fontSize: 14,
+    fontFamily: 'Poppins-SemiBold',
   },
 
   homeCardContainer: {

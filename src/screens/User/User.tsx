@@ -101,12 +101,13 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     marginTop: 5,
-    fontFamily: 'Poppins-Medium',
+    fontFamily: 'Poppins-SemiBold',
   },
 
   point: {
     color: 'black',
-    fontSize: 18,
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
     marginTop: 20,
   },
 
@@ -125,12 +126,13 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    width: 30,
-    height: 30,
+    width: 28,
+    height: 28,
   },
 
   touchable_text: {
-    fontSize: 20,
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
     color: 'black',
     marginLeft: 20,
   },
@@ -140,9 +142,9 @@ const styles = StyleSheet.create({
   },
 
   summary_text: {
+    fontFamily: 'Poppins-Medium',
     color: 'black',
     fontSize: 20,
-    fontWeight: 'bold',
     marginBottom: 10,
   },
 

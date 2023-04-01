@@ -44,12 +44,15 @@ export const QuestBox = ({navigation}: any) => {
 const styles = StyleSheet.create({
   questBox: {
     width: '87%',
-    height: '40%',
+    height: '45%',
     backgroundColor: '#859671',
     borderRadius: 10,
     marginBottom: 50,
     alignItems: 'center',
     justifyContent: 'space-evenly',
+    shadowColor: '#75797d',
+    shadowOpacity: 0.2,
+    elevation: 10,
   },
 
   questHeader: {
@@ -60,7 +63,7 @@ const styles = StyleSheet.create({
   },
 
   questHeaderTitle: {
-    fontFamily: 'Poppins-Semibold',
+    fontFamily: 'Poppins-SemiBold',
     color: '#FFFFFF',
     fontSize: 18,
   },

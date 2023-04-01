@@ -29,14 +29,14 @@ const styles = StyleSheet.create({
 
   amount_text: {
     color: 'black',
+    fontFamily: 'Poppins-SemiBold',
     marginTop: 10,
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: 16,
   },
 
   item_text: {
+    fontFamily: 'Poppins-Medium',
     color: 'black',
-    fontWeight: 'bold',
-    fontSize: 15,
+    fontSize: 14,
   },
 });

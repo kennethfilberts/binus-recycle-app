@@ -13,7 +13,12 @@ interface QuestProp {
 
 export const QuestCard = ({quest}: QuestProp) => {
   return (
-    <View style={styles.questCard}>
+    <TouchableOpacity
+      style={styles.questCard}
+      activeOpacity={1}
+      onPress={() => {
+        quest.navigation.navigate('Scan');
+      }}>
       <Image source={quest.imageUrl} style={styles.cardImage} />
       <View style={styles.recycleContainer}>
         <Text style={styles.recycleTitle}>{quest.recycleTitle}</Text>
@@ -22,29 +27,26 @@ export const QuestCard = ({quest}: QuestProp) => {
         </Text>
       </View>
 
-      <TouchableOpacity
-        activeOpacity={1}
-        onPress={() => {
-          quest.navigation.navigate('Scan');
-        }}>
-        <Image
-          style={styles.nextIcon}
-          source={require('../../../assets/images/next-icon.png')}
-        />
-      </TouchableOpacity>
-    </View>
+      <Image
+        style={styles.nextIcon}
+        source={require('../../../assets/images/next-icon.png')}
+      />
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   questCard: {
-    height: '30%',
+    height: 75,
     backgroundColor: '#FFFEF3',
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     flexDirection: 'row',
     display: 'flex',
+    shadowColor: '#75797d',
+    shadowOpacity: 0.2,
+    elevation: 10,
   },
 
   cardImage: {
@@ -56,12 +58,12 @@ const styles = StyleSheet.create({
 
   recycleTitle: {
     color: 'black',
-    fontFamily: 'Poppins-Semibold',
+    fontFamily: 'Poppins-SemiBold',
   },
 
   recycleGoal: {
     color: 'black',
-    fontFamily: 'Poppins-Semibold',
+    fontFamily: 'Poppins-SemiBold',
     fontSize: 12,
   },
 
