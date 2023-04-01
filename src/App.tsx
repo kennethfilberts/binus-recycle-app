@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import Splash from './screens/Splash';
 import Login from './screens/Login';
-import Home from './screens/Home';
+import Home from './screens/Home/Home';
 import Scan from './screens/Scan';
 import Redeem from './screens/Redeem';
 import User from './screens/User/User';

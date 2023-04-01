@@ -12,13 +12,16 @@ export default function Login({navigation}: any) {
 
   return (
     <View style={styles.body}>
-      <Image source={require('../assets/logo.png')} style={styles.logo} />
+      <Image
+        source={require('../assets/images/logo.png')}
+        style={styles.logo}
+      />
       <View style={styles.bottom}>
         <Text style={styles.text}>
           Sign in with your work or school account
         </Text>
         <TouchableOpacity style={styles.button} onPress={onPressHandler}>
-          <Image source={require('../assets/microsoft.png')} />
+          <Image source={require('../assets/images/microsoft.png')} />
           <Text style={styles.text_button}>Login with microsoft account</Text>
         </TouchableOpacity>
       </View>

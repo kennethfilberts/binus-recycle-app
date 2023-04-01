@@ -1,6 +1,8 @@
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {useState} from 'react';
+import {SummaryCard} from './components/HomeCard';
+import {QuestBox} from './components/QuestBox';
 
 export default function Home({navigation}: any) {
   let name = 'Binusian';
@@ -9,10 +11,16 @@ export default function Home({navigation}: any) {
   const [glass, setGlass] = useState(3);
   const [metal, setMetal] = useState(0.5);
 
+  const imageUrl = {
+    location: require('../../assets/images/location-icon.png'),
+    summary: require('../../assets/images/summary-icon.png'),
+    faq: require('../../assets/images/faq-icon.png'),
+  };
+
   return (
     <View style={styles.body}>
       {/* Header */}
-      <View style={styles.box}>
+      <View style={styles.headerBox}>
         <View style={styles.text_box}>
           <Text style={styles.morning}>Good Morning, {name}</Text>
           <Text style={styles.point}>Points: {point}</Text>
@@ -33,6 +41,32 @@ export default function Home({navigation}: any) {
           />
         </View>
       </View>
+
+      <View style={styles.quoteBox}>
+        <Text style={styles.quoteText}>
+          One Small Change Can Change The World
+        </Text>
+      </View>
+
+      <View style={styles.homeCardContainer}>
+        <SummaryCard
+          imageUrl={imageUrl.location}
+          cardName={'Location'}
+          navigation={navigation}
+        />
+        <SummaryCard
+          imageUrl={imageUrl.summary}
+          cardName={'Summary'}
+          navigation={navigation}
+        />
+        <SummaryCard
+          imageUrl={imageUrl.faq}
+          cardName={'FAQ'}
+          navigation={navigation}
+        />
+      </View>
+
+      <QuestBox navigation={navigation} />
     </View>
   );
 }
@@ -40,12 +74,15 @@ export default function Home({navigation}: any) {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-between',
     backgroundColor: '#FFFCF5',
   },
 
-  box: {
+  headerBox: {
     backgroundColor: '#61876E',
     height: '16%',
+    width: '100%',
     borderBottomLeftRadius: 20,
     borderBottomRightRadius: 20,
     justifyContent: 'space-around',
@@ -60,7 +97,8 @@ const styles = StyleSheet.create({
   morning: {
     color: 'white',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 16,
+    fontFamily: 'Poppins-Semibold',
   },
 
   point: {
@@ -74,5 +112,25 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     height: 60,
     width: 60,
+  },
+
+  quoteBox: {
+    backgroundColor: '#859671',
+    width: '87%',
+    height: '6%',
+    borderRadius: 10,
+    justifyContent: 'center',
+  },
+
+  quoteText: {
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontSize: 14,
+  },
+
+  homeCardContainer: {
+    width: '87%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

@@ -6,9 +6,9 @@ export default function User({route}: any) {
   const {name, point, plastic, glass, metal} = route.params;
 
   const itemUrl = {
-    plastic: require('../../assets/plastic.png'),
-    glass: require('../../assets/glass.png'),
-    metal: require('../../assets/metal.png'),
+    plastic: require('../../assets/images/plastic.png'),
+    glass: require('../../assets/images/glass.png'),
+    metal: require('../../assets/images/metal.png'),
   };
 
   return (
@@ -22,14 +22,14 @@ export default function User({route}: any) {
       <TouchableOpacity style={styles.touchable}>
         <View style={styles.touchable_sign}>
           <Image
-            source={require('../../assets/edit.png')}
+            source={require('../../assets/images/edit.png')}
             style={styles.icon}
           />
           <Text style={styles.touchable_text}>Change Profile</Text>
         </View>
 
         <Image
-          source={require('../../assets/next-icon.png')}
+          source={require('../../assets/images/next-icon.png')}
           style={styles.icon}
         />
       </TouchableOpacity>
@@ -58,14 +58,14 @@ export default function User({route}: any) {
       <TouchableOpacity style={styles.touchable}>
         <View style={styles.touchable_sign}>
           <Image
-            source={require('../../assets/logout.png')}
+            source={require('../../assets/images/logout.png')}
             style={styles.icon}
           />
           <Text style={styles.touchable_text}>Sign Out</Text>
         </View>
 
         <Image
-          source={require('../../assets/next-icon.png')}
+          source={require('../../assets/images/next-icon.png')}
           style={styles.icon}
         />
       </TouchableOpacity>
@@ -101,6 +101,7 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     marginTop: 5,
+    fontFamily: 'Poppins-Medium',
   },
 
   point: {
