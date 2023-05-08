@@ -1,18 +1,38 @@
-import React from 'react';
-import {StyleSheet, Image, TouchableOpacity} from 'react-native';
-import Splash from '../pages/splash';
-import Login from '../pages/login';
-import Home from '../pages/home';
-import Scan from '../pages/scan';
-import Redeem from '../pages/redeem';
-import User from '../pages/user';
+import React, {useCallback} from 'react';
+import Splash from './screens/Splash';
+import Login from './screens/Login';
+import Home from './screens/Home/Home';
+import Scan from './screens/Scan';
+import Redeem from './screens/Redeem';
+import User from './screens/User/User';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  HomeIcon,
+  HomeIconFocused,
+  RedeemIcon,
+  RedeemIconFocused,
+  ScanIcon,
+  BackIcon,
+} from './TabIcons';
 
 function HomeScreen({navigation}: any) {
   const Tab = createBottomTabNavigator();
+
+  const homeIconComponent = useCallback(({focused}: {focused: boolean}) => {
+    return focused ? <HomeIconFocused /> : <HomeIcon />;
+  }, []);
+
+  const redeemIconComponent = useCallback(({focused}: {focused: boolean}) => {
+    return focused ? <RedeemIconFocused /> : <RedeemIcon />;
+  }, []);
+
+  const scanIconComponent = useCallback(
+    () => <ScanIcon navigation={navigation} />,
+    [navigation],
+  );
 
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
@@ -20,23 +40,7 @@ function HomeScreen({navigation}: any) {
         name="home"
         component={Home}
         options={{
-          tabBarIcon: ({focused}) => {
-            if (focused) {
-              return (
-                <Image
-                  source={require('../public/home-icon-focused.png')}
-                  style={styles.icon}
-                />
-              );
-            } else {
-              return (
-                <Image
-                  source={require('../public/home-icon.png')}
-                  style={styles.icon}
-                />
-              );
-            }
-          },
+          tabBarIcon: homeIconComponent,
           tabBarShowLabel: false,
         }}
       />
@@ -45,19 +49,7 @@ function HomeScreen({navigation}: any) {
         name="scan"
         component={Scan}
         options={{
-          tabBarIcon: ({focused}) => {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('Scan');
-                }}>
-                <Image
-                  source={require('../public/scan-icon.png')}
-                  style={styles.scan}
-                />
-              </TouchableOpacity>
-            );
-          },
+          tabBarIcon: scanIconComponent,
           tabBarShowLabel: false,
         }}
       />
@@ -66,23 +58,7 @@ function HomeScreen({navigation}: any) {
         name="redeem"
         component={Redeem}
         options={{
-          tabBarIcon: ({focused}) => {
-            if (focused) {
-              return (
-                <Image
-                  source={require('../public/redeem-icon-focused.png')}
-                  style={styles.icon}
-                />
-              );
-            } else {
-              return (
-                <Image
-                  source={require('../public/redeem-icon.png')}
-                  style={styles.icon}
-                />
-              );
-            }
-          },
+          tabBarIcon: redeemIconComponent,
           tabBarShowLabel: false,
         }}
       />
@@ -104,12 +80,7 @@ function App(): JSX.Element {
             fontSize: 23,
             fontWeight: 'bold',
           },
-          headerBackImage: () => (
-            <Image
-              source={require('../public/back-icon.png')}
-              style={styles.back}
-            />
-          ),
+          headerBackImage: BackIcon,
         }}>
         <Stack.Screen
           name="splash"
@@ -132,22 +103,5 @@ function App(): JSX.Element {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  icon: {
-    width: 24,
-    height: 24,
-  },
-
-  scan: {
-    width: 70,
-    height: 70,
-    marginBottom: 30,
-  },
-
-  back: {
-    marginLeft: 30,
-  },
-});
 
 export default App;
