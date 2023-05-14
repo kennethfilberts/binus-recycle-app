@@ -1,15 +1,27 @@
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, StatusBar} from 'react-native';
 import React, {useEffect} from 'react';
+import {useSelector} from 'react-redux';
+import {RootState} from './../redux/Store';
+import changeNavigationBarColor from 'react-native-navigation-bar-color';
+import {greyTheme, backgroundTheme} from '../assets/colors';
 
 export default function Splash({navigation}: any) {
+  const token = useSelector((state: RootState) => state.auth.Token);
+
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('login');
-    }, 2000);
-  }, [navigation]);
+      if (token) {
+        changeNavigationBarColor(greyTheme, true);
+        navigation.replace('home-screen');
+      } else {
+        navigation.replace('login');
+      }
+    }, 0);
+  }, [navigation, token]);
 
   return (
     <View style={styles.body}>
+      <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
       <Image
         source={require('../assets/images/logo.png')}
         style={styles.logo}

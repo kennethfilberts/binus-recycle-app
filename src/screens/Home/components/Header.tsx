@@ -1,23 +1,50 @@
-import {StyleSheet, View, StatusBar} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import {
   lightGreenTheme,
   backgroundTheme,
   blackTheme,
-} from '../../assets/colors';
-import {Header} from './components/Header';
+} from '../../../assets/colors';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../../redux/Store';
+import HomeUserIcon from '../../../assets/icons/HomeUserIcon';
 
-export default function Home({navigation}: any) {
+export const Header = () => {
+  const StudentName = useSelector((state: RootState) => state.auth.StudentName);
 
   return (
-    <View style={styles.outerContainer}>
-      <StatusBar backgroundColor={lightGreenTheme} barStyle="dark-content" />
-      <Header></Header>
-      <View style={styles.menuOuterContainer}></View>
-      <View style={styles.missionOuterContainer}></View>
+    <View style={styles.headerOuterContainer}>
+      <View style={styles.headerBackground}>
+        <View style={styles.headerUserInfo}>
+          <View style={styles.headerUserText}>
+            <Text style={styles.greetingText}>Good Morning</Text>
+            <Text style={styles.nameText}>{StudentName}</Text>
+          </View>
+          <HomeUserIcon />
+        </View>
+        <View style={styles.treasureTroveBackground}>
+          <View style={styles.treasureTroveOuterContainer}>
+            <Text style={styles.treasureTroveHeader}>
+              My Eco-Treasure Trove
+            </Text>
+            <View style={styles.treasureTroveInnerContainer}>
+              <Image
+                source={require('../../../assets/images/earth-love.png')}
+                style={styles.earthImage}
+              />
+              <View style={styles.treasureTroveTextContainer}>
+                <Text style={styles.treasureTroveCoins}>1500 Eco-Coins</Text>
+                <Text style={styles.treasureTroveText}>
+                  Your recycling efforts are making a world of difference
+                </Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   outerContainer: {
@@ -39,7 +66,7 @@ const styles = StyleSheet.create({
   },
   headerBackground: {
     backgroundColor: lightGreenTheme,
-    height: '95%',
+    height: '70%',
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     alignItems: 'center',
@@ -47,7 +74,7 @@ const styles = StyleSheet.create({
   },
   headerUserInfo: {
     width: '90%',
-    height: '40%',
+    height: '55%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -66,14 +93,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   },
   treasureTroveBackground: {
-    height: '65%',
+    height: '70%',
     backgroundColor: 'white',
     flexDirection: 'column',
     width: '90%',
     borderRadius: 15,
     justifyContent: 'center',
     position: 'absolute',
-    top: '40%',
+    top: '55%',
   },
   treasureTroveOuterContainer: {
     alignItems: 'center',
