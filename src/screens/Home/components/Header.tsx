@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import React from 'react';
 import {
   lightGreenTheme,
@@ -8,6 +8,8 @@ import {
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/Store';
 import HomeUserIcon from '../../../assets/icons/HomeUserIcon';
+
+const screenHeight = Dimensions.get('window').height;
 
 export const Header = () => {
   const StudentName = useSelector((state: RootState) => state.auth.StudentName);
@@ -47,26 +49,12 @@ export const Header = () => {
 };
 
 const styles = StyleSheet.create({
-  outerContainer: {
-    flex: 1,
-    flexDirection: 'column',
-    backgroundColor: backgroundTheme,
-  },
   headerOuterContainer: {
-    flex: 35,
-    backgroundColor: 'red',
-  },
-  menuOuterContainer: {
-    flex: 25,
-    backgroundColor: 'green',
-  },
-  missionOuterContainer: {
-    flex: 40,
-    backgroundColor: 'blue',
+    height: screenHeight * 0.3,
   },
   headerBackground: {
     backgroundColor: lightGreenTheme,
-    height: '70%',
+    height: '85%',
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     alignItems: 'center',
@@ -100,7 +88,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'center',
     position: 'absolute',
-    top: '55%',
+    top: '48%',
+    elevation: 5,
   },
   treasureTroveOuterContainer: {
     alignItems: 'center',

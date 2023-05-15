@@ -1,5 +1,6 @@
 export const backgroundTheme = '#FFF9F4';
 export const greyTheme = '#F3EFEA';
+export const pastelGreenTheme = '#16C79A';
 export const lightGreenTheme = '#06A385';
 export const darkGreenTheme = '#3C6154';
 export const blackTheme = '#142625';
@@ -13,6 +14,5 @@ export const lightPinkTheme = '#FAD3CF';
 export const disabledPinkTheme = '#FFAACC';
 export const yellowGreenTheme = '#CEE88E';
 export const lightBlueTheme = '#BAE5F4';
-export const bluePurpleTheme = '#A3A7E4';
 export const redTheme = '#FF7A6B';
 export const darkGreyTheme = '#B4BBB6';

@@ -1,23 +1,39 @@
-import {StyleSheet, View, StatusBar} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  ScrollView,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
 import {
   lightGreenTheme,
   backgroundTheme,
+  greyTheme,
   blackTheme,
+  lightYellowTheme,
+  pastelGreenTheme,
 } from '../../assets/colors';
 import {Header} from './components/Header';
+import {MenuScroll} from './components/MenuScroll';
+import {MissionCard} from './components/MissionCard';
 
-export default function Home({navigation}: any) {
+const screenHeight = Dimensions.get('window').height;
 
+const Home = ({navigation}: any) => {
   return (
     <View style={styles.outerContainer}>
       <StatusBar backgroundColor={lightGreenTheme} barStyle="dark-content" />
-      <Header></Header>
-      <View style={styles.menuOuterContainer}></View>
-      <View style={styles.missionOuterContainer}></View>
+      <ScrollView>
+        <Header />
+        <MenuScroll navigation={navigation} />
+        <MissionCard navigation={navigation} />
+      </ScrollView>
     </View>
   );
-}
+};
+
+export default Home;
 
 const styles = StyleSheet.create({
   outerContainer: {
@@ -25,90 +41,93 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     backgroundColor: backgroundTheme,
   },
-  headerOuterContainer: {
-    flex: 35,
-    backgroundColor: 'red',
-  },
-  menuOuterContainer: {
-    flex: 25,
-    backgroundColor: 'green',
-  },
   missionOuterContainer: {
-    flex: 40,
-    backgroundColor: 'blue',
-  },
-  headerBackground: {
-    backgroundColor: lightGreenTheme,
-    height: '95%',
-    borderBottomLeftRadius: 30,
-    borderBottomRightRadius: 30,
+    height: screenHeight * 0.5,
+    //backgroundColor: 'blue',
     alignItems: 'center',
-    flexDirection: 'column',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
-  headerUserInfo: {
+  missionCard: {
+    backgroundColor: greyTheme,
     width: '90%',
-    height: '40%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    height: '100%',
+    borderRadius: 25,
     alignItems: 'center',
-  },
-  headerUserText: {
     justifyContent: 'center',
   },
-  greetingText: {
-    fontSize: 14,
-    fontFamily: 'Poppins-Regular',
-    color: 'white',
-  },
-  nameText: {
-    fontSize: 20,
-    color: 'white',
-    fontFamily: 'Poppins-SemiBold',
-  },
-  treasureTroveBackground: {
-    height: '65%',
-    backgroundColor: 'white',
-    flexDirection: 'column',
+  missionCardInnerContainer: {
     width: '90%',
-    borderRadius: 15,
-    justifyContent: 'center',
-    position: 'absolute',
-    top: '40%',
+    height: '90%',
   },
-  treasureTroveOuterContainer: {
-    alignItems: 'center',
+  missionCardHeaderContainer: {
+    height: '15%',
     justifyContent: 'center',
+  },
+  missionsListContainer: {
+    height: '85%',
     width: '100%',
+    justifyContent: 'space-evenly',
   },
-  treasureTroveInnerContainer: {
-    flexDirection: 'row',
-    width: '80%',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  treasureTroveTextContainer: {
-    flexDirection: 'column',
-    width: '65%',
-  },
-  treasureTroveHeader: {
-    color: blackTheme,
+  missionsHeader: {
     fontFamily: 'Poppins-Bold',
-    fontSize: 15,
-    width: '80%',
-  },
-  earthImage: {
-    height: '75%',
-    width: undefined,
-    aspectRatio: 1,
-  },
-  treasureTroveCoins: {
     color: blackTheme,
-    fontFamily: 'Poppins-SemiBold',
     fontSize: 20,
   },
-  treasureTroveText: {
-    color: blackTheme,
+  missionsSubText: {
     fontFamily: 'Poppins-Regular',
+    color: blackTheme,
     fontSize: 12,
+  },
+  missionItem: {
+    height: '27%',
+    width: '100%',
+    backgroundColor: 'white',
+    borderRadius: 9,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+  },
+  infoContainer: {
+    height: '75%',
+    justifyContent: 'space-evenly',
+  },
+  completion: {
+    backgroundColor: pastelGreenTheme,
+    width: '70%',
+    height: '30%',
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  completionText: {
+    fontFamily: 'Poppins-Regular',
+    color: 'white',
+    fontSize: 12,
+  },
+  missionName: {
+    fontFamily: 'Poppins-Medium',
+    color: blackTheme,
+    fontSize: 14,
+  },
+  imageAndInfoContainer: {
+    height: '100%',
+    width: '70%',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  imageContainer: {
+    height: '75%',
+    aspectRatio: 1,
+    borderRadius: 5,
+    backgroundColor: lightYellowTheme,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  categoryImage: {
+    height: '75%',
+    width: '75%',
+    resizeMode: 'contain',
   },
 });

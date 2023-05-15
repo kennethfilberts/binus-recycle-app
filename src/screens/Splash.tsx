@@ -1,11 +1,13 @@
 import {StyleSheet, View, Image, StatusBar} from 'react-native';
 import React, {useEffect} from 'react';
 import {useSelector} from 'react-redux';
-import {RootState} from './../redux/Store';
+import {RootState, store} from '../redux/Store';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 import {greyTheme, backgroundTheme} from '../assets/colors';
+import {clearUserData} from '../redux/reducers/AuthReducer';
 
 export default function Splash({navigation}: any) {
+  //store.dispatch(clearUserData()); //this is just here for ease of debugging, delete this later in production
   const token = useSelector((state: RootState) => state.auth.Token);
 
   useEffect(() => {
