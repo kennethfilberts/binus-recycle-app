@@ -19,7 +19,7 @@ interface MissionData {
 }
 
 interface ProgressData {
-  QuestProgress: number;
+  MissionProgress: number;
   IsCompleted: boolean;
 }
 
@@ -61,7 +61,7 @@ export const MissionItem = ({
             <Text style={styles.completionText}>
               {progressData?.IsCompleted
                 ? 'Completed'
-                : `Pending (${progressData?.QuestProgress}/${missionData?.ItemAmount})`}
+                : `Pending (${progressData?.MissionProgress}/${missionData?.ItemAmount})`}
             </Text>
           </View>
         </View>

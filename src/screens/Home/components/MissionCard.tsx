@@ -50,15 +50,15 @@ const categories: Categories = {
 };
 
 interface MissionData {
-  QuestID: string;
+  MissionID: string;
   ItemAmount: number;
   CategoryName: string;
 }
 
 interface ProgressData {
   StudentID: string;
-  QuestID: string;
-  QuestProgress: number;
+  MissionID: string;
+  MissionProgress: number;
   IsCompleted: boolean;
 }
 
@@ -82,7 +82,7 @@ export const MissionCard = ({navigation}: any) => {
     const fetchMissions = async () => {
       try {
         const response = await axios.get(
-          `${process.env.BASE_URL}/api/v1/daily-quest`,
+          `${process.env.BASE_URL}/api/v1/daily-mission`,
           {
             timeout: 2000,
           },
@@ -103,7 +103,7 @@ export const MissionCard = ({navigation}: any) => {
     const fetchMissionProgress = async () => {
       try {
         const res = await axios.post(
-          `${process.env.BASE_URL}/api/v1/daily-quest/progress`,
+          `${process.env.BASE_URL}/api/v1/daily-mission/progress`,
           {
             studentID,
           },
@@ -133,7 +133,7 @@ export const MissionCard = ({navigation}: any) => {
           <View style={styles.missionCardHeaderContainer}>
             <Text style={styles.missionsHeader}>Planet-Saving Missions</Text>
             <Text style={styles.missionsSubText}>
-              Saving the World, One Quest at a Time!
+              Saving the World, One Mission at a Time!
             </Text>
           </View>
           <View style={styles.missionsListContainer}>
