@@ -168,7 +168,7 @@ export const MissionCard = ({navigation}: any) => {
                   category={
                     thirdMission ? categories[thirdMission.CategoryName] : null
                   }
-                  missionData={firstMission}
+                  missionData={thirdMission}
                   progressData={thirdProgress}
                 />
               </>

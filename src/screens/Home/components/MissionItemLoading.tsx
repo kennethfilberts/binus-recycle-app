@@ -14,7 +14,7 @@ export const MissionItemLoading = () => {
         </View>
       </View>
 
-      <ArrowIcon rotation={180} style={{marginLeft: 15}} />
+      <ArrowIcon rotation={180} style={styles.arrow} />
     </View>
   );
 };
@@ -64,5 +64,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: darkGreyTheme,
+  },
+  arrow: {
+    marginLeft: 15,
   },
 });

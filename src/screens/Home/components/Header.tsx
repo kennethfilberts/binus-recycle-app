@@ -1,10 +1,6 @@
 import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import React from 'react';
-import {
-  lightGreenTheme,
-  backgroundTheme,
-  blackTheme,
-} from '../../../assets/colors';
+import {lightGreenTheme, blackTheme} from '../../../assets/colors';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/Store';
 import HomeUserIcon from '../../../assets/icons/HomeUserIcon';

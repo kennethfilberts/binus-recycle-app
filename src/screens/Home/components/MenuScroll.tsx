@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-evenly',
-    width: '115%',
+    width: '118%',
   },
   missionOuterContainer: {
     height: screenHeight * 0.5,

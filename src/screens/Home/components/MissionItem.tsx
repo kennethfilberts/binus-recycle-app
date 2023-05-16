@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native';
 import ArrowIcon from '../../../assets/icons/ArrowIcon';
 import {
@@ -29,6 +29,8 @@ type MissionItemProps = {
   missionData: MissionData | null;
   progressData: ProgressData | null;
 };
+
+const screenWidth = Dimensions.get('window').width;
 
 export const MissionItem = ({
   navigation,
@@ -90,9 +92,10 @@ const styles = StyleSheet.create({
   infoContainer: {
     height: '75%',
     justifyContent: 'space-evenly',
+    marginLeft: '5%',
   },
   completion: {
-    width: '80%',
+    width: screenWidth * 0.3,
     height: '35%',
     borderRadius: 15,
     alignItems: 'center',
@@ -111,7 +114,6 @@ const styles = StyleSheet.create({
   imageAndInfoContainer: {
     height: '100%',
     width: '70%',
-    justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
   },
