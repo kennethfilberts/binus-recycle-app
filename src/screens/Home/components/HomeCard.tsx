@@ -6,14 +6,15 @@ interface CardProp {
   imageUrl: any;
   cardName: string;
   navigation: any;
+  destination: string;
 }
 
-export const SummaryCard = ({imageUrl, cardName, navigation}: CardProp) => {
+export const SummaryCard = ({imageUrl, cardName, navigation, destination}: CardProp) => {
   return (
     <TouchableOpacity
       activeOpacity={1}
       onPress={() => {
-        navigation.navigate('Scan'); //Change this
+        navigation.navigate(destination);
       }}>
       <View style={styles.homeCard}>
         <Image source={imageUrl} style={styles.cardImage} />

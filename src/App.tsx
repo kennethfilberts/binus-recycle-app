@@ -5,6 +5,7 @@ import Home from './screens/Home/Home';
 import Scan from './screens/Scan';
 import Redeem from './screens/Redeem';
 import User from './screens/User/User';
+import Summary from './screens/Summary/Summary';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
 import 'react-native-gesture-handler';
@@ -15,8 +16,9 @@ import {
   RedeemIcon,
   RedeemIconFocused,
   ScanIcon,
-  BackIcon,
 } from './TabIcons';
+import { backgroundTheme } from './assets/colors';
+import BackIcon from './assets/icons/global/BackIcon';
 
 function HomeScreen({navigation}: any) {
   const Tab = createBottomTabNavigator();
@@ -75,12 +77,13 @@ function App(): JSX.Element {
         initialRouteName="splash"
         screenOptions={{
           headerTitleAlign: 'center',
-          headerStyle: {backgroundColor: '#FFFCF5'},
+          headerStyle: {backgroundColor: backgroundTheme},
           headerTitleStyle: {
             fontSize: 23,
-            fontWeight: 'bold',
+            fontFamily: 'Poppins-Bold',
+            marginTop: 6,
           },
-          headerBackImage: BackIcon,
+          headerBackImage: BackIcon
         }}>
         <Stack.Screen
           name="splash"
@@ -97,7 +100,8 @@ function App(): JSX.Element {
           component={HomeScreen}
           options={{headerShown: false}}
         />
-        <Stack.Screen name="Account" component={User} />
+        <Stack.Screen name="User Profile" component={User} />
+        <Stack.Screen name="Green Highlights" component={Summary} />
         <Stack.Screen name="Scan" component={Scan} />
       </Stack.Navigator>
     </NavigationContainer>

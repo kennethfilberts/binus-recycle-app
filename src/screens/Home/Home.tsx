@@ -30,7 +30,7 @@ export default function Home({navigation}: any) {
           <TouchableOpacity
             style={styles.user}
             onPress={() => {
-              navigation.navigate('Account', {
+              navigation.navigate('User Profile', {
                 name: name,
                 point: point,
                 glass: glass,
@@ -53,16 +53,19 @@ export default function Home({navigation}: any) {
           imageUrl={imageUrl.location}
           cardName={'Location'}
           navigation={navigation}
+          destination={'Scan'}
         />
         <SummaryCard
           imageUrl={imageUrl.summary}
           cardName={'Summary'}
           navigation={navigation}
+          destination={'Green Highlights'}
         />
         <SummaryCard
           imageUrl={imageUrl.faq}
           cardName={'FAQ'}
           navigation={navigation}
+          destination={'Scan'}
         />
       </View>
 

@@ -29,13 +29,6 @@ export const RedeemIcon = () => (
   />
 );
 
-export const BackIcon = () => (
-  <Image
-    source={require('./assets/images/back-icon.png')}
-    style={styles.back}
-  />
-);
-
 export const ScanIcon = ({navigation}: any) => (
   <View style={styles.scanButton}>
     <TouchableOpacity

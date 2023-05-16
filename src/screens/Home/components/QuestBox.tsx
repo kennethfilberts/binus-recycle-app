@@ -23,6 +23,7 @@ export const QuestBox = ({navigation}: any) => {
       navigation: navigation,
     },
   };
+
   return (
     <View style={styles.questBox}>
       <View style={styles.questHeader}>
