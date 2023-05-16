@@ -17,7 +17,7 @@ const getWasteType = (icon: string) => {
 };
 
 interface Param {
-  type: string;
+  type: string; 
 }
 
 export const Favorite = ({type}: Param) => {
