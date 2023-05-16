@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Dimensions} from 'react-native';
 import {
   greyTheme,
@@ -10,54 +10,121 @@ import {
   lightGreenTheme,
 } from '../../../assets/colors';
 import {MissionItem} from './MissionItem';
+import {MissionItemLoading} from './MissionItemLoading';
 import axios from 'axios';
+import {RootState} from 'src/redux/Store';
+import {useSelector} from 'react-redux';
 
 const screenHeight = Dimensions.get('window').height;
 
-export const MissionCard = ({navigation}: any) => {
-  const categories = {
-    Plastic: {
-      source: require('../../../assets/images/plastic.png'),
-      color: lightYellowTheme,
-    },
-    Metal: {
-      source: require('../../../assets/images/metal.png'),
-      color: yellowGreenTheme,
-    },
-    Glass: {
-      source: require('../../../assets/images/glass.png'),
-      color: lightPurpleTheme,
-    },
-    Paper: {
-      source: require('../../../assets/images/paper.png'),
-      color: redTheme,
-    },
-    Cardboard: {
-      source: require('../../../assets/images/cardboard.png'),
-      color: lightGreenTheme,
-    },
-  };
+interface Category {
+  source: any;
+  color: string;
+}
 
-  const [firstMission, setFirstMission] = useState<any>(null);
-  const [secondMission, setSecondMission] = useState<any>(null);
-  const [thirdMission, setThirdMission] = useState<any>(null);
+interface Categories {
+  [key: string]: Category;
+}
+
+const categories: Categories = {
+  Plastic: {
+    source: require('../../../assets/images/plastic.png'),
+    color: lightYellowTheme,
+  },
+  Metal: {
+    source: require('../../../assets/images/metal.png'),
+    color: yellowGreenTheme,
+  },
+  Glass: {
+    source: require('../../../assets/images/glass.png'),
+    color: lightPurpleTheme,
+  },
+  Paper: {
+    source: require('../../../assets/images/paper.png'),
+    color: redTheme,
+  },
+  Cardboard: {
+    source: require('../../../assets/images/cardboard.png'),
+    color: lightGreenTheme,
+  },
+};
+
+interface MissionData {
+  QuestID: string;
+  ItemAmount: number;
+  CategoryName: string;
+}
+
+interface ProgressData {
+  StudentID: string;
+  QuestID: string;
+  QuestProgress: number;
+  IsCompleted: boolean;
+}
+
+export const MissionCard = ({navigation}: any) => {
+  const [firstMission, setFirstMission] = useState<MissionData | null>(null);
+  const [firstProgress, setFirstProgress] = useState<ProgressData | null>(null);
+
+  const [secondMission, setSecondMission] = useState<MissionData | null>(null);
+  const [secondProgress, setSecondProgress] = useState<ProgressData | null>(
+    null,
+  );
+
+  const [thirdMission, setThirdMission] = useState<MissionData | null>(null);
+  const [thirdProgress, setThirdProgress] = useState<ProgressData | null>(null);
+
   const [isLoading, setLoading] = useState(true);
 
+  const studentID = useSelector((state: RootState) => state.auth.StudentID);
+
   useEffect(() => {
-    axios
-      .get(`${process.env.BASE_URL}/api/v1/daily-quest`, {
-        timeout: 2000,
-      })
-      .then(res => {
-        setFirstMission(res.data.data[0]);
-        setSecondMission(res.data.data[1]);
-        setThirdMission(res.data.data[2]);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    const fetchMissions = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.BASE_URL}/api/v1/daily-quest`,
+          {
+            timeout: 2000,
+          },
+        );
+
+        setFirstMission(response.data.data[0]);
+        setSecondMission(response.data.data[1]);
+        setThirdMission(response.data.data[2]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMissions();
   }, []);
+
+  useEffect(() => {
+    const fetchMissionProgress = async () => {
+      try {
+        const res = await axios.post(
+          `${process.env.BASE_URL}/api/v1/daily-quest/progress`,
+          {
+            studentID,
+          },
+          {
+            timeout: 2000,
+          },
+        );
+
+        setFirstProgress(res.data.data[0]);
+        setSecondProgress(res.data.data[1]);
+        setThirdProgress(res.data.data[2]);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (firstMission && secondMission && thirdMission) {
+      fetchMissionProgress();
+      setLoading(false);
+    }
+  }, [firstMission, secondMission, studentID, thirdMission]);
 
   return (
     <View style={styles.missionOuterContainer}>
@@ -70,21 +137,42 @@ export const MissionCard = ({navigation}: any) => {
             </Text>
           </View>
           <View style={styles.missionsListContainer}>
-            <MissionItem
-              navigation={navigation}
-              category={categories.Metal}
-              missionData={firstMission}
-            />
-            <MissionItem
-              navigation={navigation}
-              category={categories.Metal}
-              missionData={firstMission}
-            />
-            <MissionItem
-              navigation={navigation}
-              category={categories.Metal}
-              missionData={firstMission}
-            />
+            {isLoading ? (
+              <>
+                <MissionItemLoading />
+                <MissionItemLoading />
+                <MissionItemLoading />
+              </>
+            ) : (
+              <>
+                <MissionItem
+                  navigation={navigation}
+                  category={
+                    firstMission ? categories[firstMission.CategoryName] : null
+                  }
+                  missionData={firstMission}
+                  progressData={firstProgress}
+                />
+                <MissionItem
+                  navigation={navigation}
+                  category={
+                    secondMission
+                      ? categories[secondMission.CategoryName]
+                      : null
+                  }
+                  missionData={secondMission}
+                  progressData={secondProgress}
+                />
+                <MissionItem
+                  navigation={navigation}
+                  category={
+                    thirdMission ? categories[thirdMission.CategoryName] : null
+                  }
+                  missionData={firstMission}
+                  progressData={thirdProgress}
+                />
+              </>
+            )}
           </View>
         </View>
       </View>
@@ -95,7 +183,6 @@ export const MissionCard = ({navigation}: any) => {
 const styles = StyleSheet.create({
   missionOuterContainer: {
     height: screenHeight * 0.5,
-    //backgroundColor: 'blue',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
