@@ -4,6 +4,7 @@ import {
   View,
   ImageBackground,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import React from 'react';
 import {backgroundTheme, blackTheme} from '../../assets/colors';
@@ -22,6 +23,7 @@ export default function Summary() {
   return (
     <ScrollView>
       <View style={styles.body}>
+        <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
         <ImageBackground
           source={require('../../assets/images/summary/headerbackground.png')}
           style={styles.header_image}>

@@ -1,4 +1,11 @@
-import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  StatusBar,
+} from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {Info} from './components/Info';
 import {backgroundTheme, blackTheme} from '../../assets/colors';
@@ -17,6 +24,7 @@ export default function User() {
 
   return (
     <View style={styles.body}>
+      <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
       <View>
         <TouchableOpacity style={styles.picture_profile}>
           {/* <Image source={}/> */}
