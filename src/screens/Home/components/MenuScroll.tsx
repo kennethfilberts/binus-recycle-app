@@ -28,18 +28,21 @@ export const MenuScroll = ({navigation}: any) => {
           cardName={'Eco Hotspots'}
           navigation={navigation}
           color={darkPurpleTheme}
+          destination={'Scan'}
         />
         <MenuCard
           imageUrl={imageUrl.greenHighlights}
           cardName={'Green Highlights'}
           navigation={navigation}
           color={pastelGreenTheme}
+          destination={'Green Highlights'}
         />
         <MenuCard
           imageUrl={imageUrl.curiosityOasis}
           cardName={'Curiosity Oasis'}
           navigation={navigation}
           color={lightPinkTheme}
+          destination={'Scan'}
         />
       </ScrollView>
     </View>

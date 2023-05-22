@@ -7,14 +7,21 @@ interface CardProp {
   cardName: string;
   navigation: any;
   color: string;
+  destination: string;
 }
 
-export const MenuCard = ({imageUrl, cardName, navigation, color}: CardProp) => {
+export const MenuCard = ({
+  imageUrl,
+  cardName,
+  navigation,
+  color,
+  destination,
+}: CardProp) => {
   return (
     <TouchableOpacity
       activeOpacity={1}
       onPress={() => {
-        navigation.navigate('Scan'); //Change this
+        navigation.navigate(destination); //Change this
       }}>
       <View style={[styles.homeCard, {backgroundColor: color}]}>
         <View style={styles.homeCardInner}>

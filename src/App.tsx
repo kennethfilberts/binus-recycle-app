@@ -18,10 +18,11 @@ import {
 import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {store, persistor} from './redux/Store';
-import {BackIcon} from './TabIcons';
 import HomeIcon from './assets/icons/HomeIcon';
 import RewardIcon from './assets/icons/RewardIcon';
 import ScanIcon from './assets/icons/ScanIcon';
+import Summary from './screens/Summary/Summary';
+import ArrowIcon from './assets/icons/ArrowIcon';
 
 const HomeScreen = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
@@ -87,6 +88,7 @@ const App = () => {
   changeNavigationBarColor(backgroundTheme, true);
 
   const Stack = createStackNavigator();
+  const RenderArrowIcon = useCallback(() => <ArrowIcon rotation={0} />, []);
 
   return (
     <Provider store={store}>
@@ -96,12 +98,13 @@ const App = () => {
             initialRouteName="splash"
             screenOptions={{
               headerTitleAlign: 'center',
-              headerStyle: {backgroundColor: '#FFFCF5'},
+              headerStyle: {backgroundColor: backgroundTheme, elevation: 0},
               headerTitleStyle: {
                 fontSize: 23,
-                fontWeight: 'bold',
+                fontFamily: 'Poppins-Bold',
+                marginTop: 6,
               },
-              headerBackImage: BackIcon,
+              headerBackImage: RenderArrowIcon,
             }}>
             <Stack.Screen
               name="splash"
@@ -118,7 +121,8 @@ const App = () => {
               component={HomeScreen}
               options={{headerShown: false}}
             />
-            <Stack.Screen name="Account" component={User} />
+            <Stack.Screen name="User Profile" component={User} />
+            <Stack.Screen name="Green Highlights" component={Summary} />
             <Stack.Screen name="Scan" component={Scan} />
           </Stack.Navigator>
         </NavigationContainer>

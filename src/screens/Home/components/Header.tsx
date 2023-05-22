@@ -7,7 +7,7 @@ import HomeUserIcon from '../../../assets/icons/HomeUserIcon';
 
 const screenHeight = Dimensions.get('window').height;
 
-export const Header = () => {
+export const Header = ({navigation}: any) => {
   const StudentName = useSelector((state: RootState) => state.auth.StudentName);
 
   return (
@@ -18,7 +18,7 @@ export const Header = () => {
             <Text style={styles.greetingText}>Good Morning</Text>
             <Text style={styles.nameText}>{StudentName}</Text>
           </View>
-          <HomeUserIcon />
+          <HomeUserIcon navigation={navigation} />
         </View>
         <View style={styles.treasureTroveBackground}>
           <View style={styles.treasureTroveOuterContainer}>

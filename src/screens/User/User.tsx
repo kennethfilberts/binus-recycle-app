@@ -1,74 +1,47 @@
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
-import React from 'react';
-import {SummaryCard} from './components/SummaryCard';
+import React, {useEffect, useState} from 'react';
+import {Info} from './components/Info';
+import {backgroundTheme, blackTheme} from '../../assets/colors';
 
-export default function User({route}: any) {
-  const {name, point, plastic, glass, metal} = route.params;
+export default function User() {
+  const [user, setUser] = useState<any>(null);
 
-  const itemUrl = {
-    plastic: require('../../assets/images/plastic.png'),
-    glass: require('../../assets/images/glass.png'),
-    metal: require('../../assets/images/metal.png'),
-  };
+  // useEffect(() => {
+  //   fetch('https://dummyjson.com/products/1')
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       console.log(data);
+  //       setUser(data);
+  //     });
+  // }, [user]);
 
   return (
     <View style={styles.body}>
-      <View style={styles.card_background}>
-        <TouchableOpacity style={styles.profile} />
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.point}>{point} Points</Text>
+      <View>
+        <TouchableOpacity style={styles.picture_profile}>
+          {/* <Image source={}/> */}
+        </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={styles.touchable}>
-        <View style={styles.touchable_sign}>
-          <Image
-            source={require('../../assets/images/edit.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.touchable_text}>Change Profile</Text>
-        </View>
+      <Text style={styles.text_bold}>Daniel Yohanes</Text>
+      <Text style={styles.text_normal}>daniel.yohanes@binus.ac.id</Text>
+      <Text style={styles.text_normal}>2501975261</Text>
 
-        <Image
-          source={require('../../assets/images/next-icon.png')}
-          style={styles.icon}
-        />
-      </TouchableOpacity>
-
-      <View style={styles.summary}>
-        <Text style={styles.summary_text}>Summary</Text>
-        <View style={styles.box_summary}>
-          <SummaryCard
-            imageUrl={itemUrl.plastic}
-            itemAmount={plastic}
-            itemName="Plastic"
-          />
-          <SummaryCard
-            imageUrl={itemUrl.glass}
-            itemAmount={glass}
-            itemName="Glass"
-          />
-          <SummaryCard
-            imageUrl={itemUrl.metal}
-            itemAmount={metal}
-            itemName="Metal"
-          />
-        </View>
+      <View style={styles.eco_card}>
+        <Text style={styles.eco_text}>1500 Eco-Coins</Text>
       </View>
 
-      <TouchableOpacity style={styles.touchable}>
-        <View style={styles.touchable_sign}>
-          <Image
-            source={require('../../assets/images/logout.png')}
-            style={styles.icon}
-          />
-          <Text style={styles.touchable_text}>Sign Out</Text>
+      <View style={styles.info_card}>
+        <View style={styles.info_card_detail}>
+          <Info imageIcon={'pass'} itemText={'Change Password'}></Info>
+          <View style={styles.line} />
+          <Info imageIcon={'notif'} itemText={'Set Notification'}></Info>
+          <View style={styles.line} />
+          <Info imageIcon={'help'} itemText={'Support Center'}></Info>
+          <View style={styles.line} />
+          <Info imageIcon={'logout'} itemText={'Log Out'}></Info>
         </View>
-
-        <Image
-          source={require('../../assets/images/next-icon.png')}
-          style={styles.icon}
-        />
-      </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -78,80 +51,68 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#FFFCF5',
+    backgroundColor: backgroundTheme,
   },
 
-  card_background: {
-    backgroundColor: '#D6DFCC',
-    borderRadius: 20,
-    width: '80%',
-    height: '30%',
-    justifyContent: 'center',
-    alignItems: 'center',
+  picture_profile: {
+    backgroundColor: '#FE7A6B',
+    width: 120,
+    height: 120,
+    borderRadius: 10,
+    marginTop: '10%',
   },
 
-  profile: {
-    height: 80,
-    width: 80,
-    backgroundColor: '#9AB5A3',
-    borderRadius: 50,
+  text_bold: {
+    fontSize: 23,
+    color: blackTheme,
+    fontFamily: 'Poppins-Bold',
+    marginTop: 30,
+    marginBottom: 0,
   },
 
-  name: {
-    color: 'black',
-    fontSize: 16,
-    marginTop: 5,
+  text_normal: {
+    fontSize: 14,
+    color: blackTheme,
+    fontFamily: 'Poppins-Regular',
+    marginTop: -5,
+  },
+
+  eco_card: {
+    backgroundColor: '#FE7A6B',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 15,
+    elevation: 5,
+  },
+
+  eco_text: {
+    color: 'white',
     fontFamily: 'Poppins-SemiBold',
+    marginBottom: -4,
   },
 
-  point: {
-    color: 'black',
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    marginTop: 20,
-  },
-
-  touchable: {
-    width: 300,
-    flexDirection: 'row',
-    marginTop: 50,
+  info_card: {
+    backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-
-  touchable_sign: {
-    flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
+    marginTop: '5%',
+    width: '100%',
+    height: '55%',
+    borderTopStartRadius: 50,
+    borderTopEndRadius: 50,
+    elevation: 30,
   },
 
-  icon: {
-    width: 28,
-    height: 28,
-  },
-
-  touchable_text: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 14,
-    color: 'black',
-    marginLeft: 20,
-  },
-
-  summary: {
-    marginTop: 35,
-  },
-
-  summary_text: {
-    fontFamily: 'Poppins-Medium',
-    color: 'black',
-    fontSize: 20,
-    marginBottom: 10,
-  },
-
-  box_summary: {
-    flexDirection: 'row',
+  info_card_detail: {
+    alignItems: 'baseline',
     justifyContent: 'center',
-    alignItems: 'center',
-    gap: 19,
+    width: '80%',
+    gap: 15,
+  },
+
+  line: {
+    backgroundColor: '#BBBBBB',
+    width: '100%',
+    height: 1,
   },
 });

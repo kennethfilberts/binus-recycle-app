@@ -25,7 +25,7 @@ const Home = ({navigation}: any) => {
     <View style={styles.outerContainer}>
       <StatusBar backgroundColor={lightGreenTheme} barStyle="dark-content" />
       <ScrollView>
-        <Header />
+        <Header navigation={navigation} />
         <MenuScroll navigation={navigation} />
         <MissionCard navigation={navigation} />
       </ScrollView>
