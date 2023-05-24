@@ -51,12 +51,11 @@ const categories: Categories = {
 
 interface MissionData {
   MissionID: string;
-  ItemAmount: number;
+  ItemWeight: number;
   CategoryName: string;
 }
 
 interface ProgressData {
-  StudentID: string;
   MissionID: string;
   MissionProgress: number;
   IsCompleted: boolean;
@@ -112,9 +111,9 @@ export const MissionCard = ({navigation}: any) => {
           },
         );
 
-        setFirstProgress(res.data.data[0]);
-        setSecondProgress(res.data.data[1]);
-        setThirdProgress(res.data.data[2]);
+        setFirstProgress(res.data.data.firstMissionProgress);
+        setSecondProgress(res.data.data.secondMissionProgress);
+        setThirdProgress(res.data.data.thirdMissionProgress);
       } catch (error) {
         console.log(error);
       }
