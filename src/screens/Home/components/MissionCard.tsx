@@ -78,6 +78,8 @@ export const MissionCard = ({navigation}: any) => {
   const studentID = useSelector((state: RootState) => state.auth.StudentID);
 
   useEffect(() => {
+    console.log(`${process.env.BASE_URL}/api/v1/daily-mission`);
+
     const fetchMissions = async () => {
       try {
         const response = await axios.get(
@@ -99,13 +101,13 @@ export const MissionCard = ({navigation}: any) => {
   }, []);
 
   useEffect(() => {
+    console.log(
+      `${process.env.BASE_URL}/api/v1/daily-mission/progress/${studentID}`,
+    );
     const fetchMissionProgress = async () => {
       try {
-        const res = await axios.post(
-          `${process.env.BASE_URL}/api/v1/daily-mission/progress`,
-          {
-            studentID,
-          },
+        const res = await axios.get(
+          `${process.env.BASE_URL}/api/v1/daily-mission/progress/${studentID}`,
           {
             timeout: 2000,
           },
