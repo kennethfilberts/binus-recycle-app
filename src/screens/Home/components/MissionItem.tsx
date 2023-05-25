@@ -61,7 +61,9 @@ export const MissionItem = ({
             <Text style={styles.completionText}>
               {progressData?.IsCompleted
                 ? 'Completed'
-                : `Pending (${progressData?.MissionProgress}/${missionData?.ItemWeight})`}
+                : `Pending (${progressData?.MissionProgress.toFixed(2)}/${
+                    missionData?.ItemWeight
+                  })`}
             </Text>
           </View>
         </View>

@@ -1,14 +1,40 @@
 import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {lightGreenTheme, blackTheme} from '../../../assets/colors';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/Store';
 import HomeUserIcon from '../../../assets/icons/HomeUserIcon';
-
-const screenHeight = Dimensions.get('window').height;
+import axios from 'axios';
 
 export const Header = ({navigation}: any) => {
+  const tempStudentPoints = useSelector(
+    (state: RootState) => state.auth.StudentPoints,
+  );
+  const studentID = useSelector((state: RootState) => state.auth.StudentID);
   const StudentName = useSelector((state: RootState) => state.auth.StudentName);
+
+  const [studentPoints, setStudentPoints] = useState(tempStudentPoints);
+
+  useEffect(() => {
+    console.log(`${process.env.BASE_URL}/api/v1/student/${studentID}`);
+
+    const fetchEcoCoins = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.BASE_URL}/api/v1/student/${studentID}`,
+          {
+            timeout: 2000,
+          },
+        );
+
+        setStudentPoints(response.data.data.StudentPoints);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchEcoCoins();
+  }, [studentID]);
 
   return (
     <View style={styles.headerOuterContainer}>
@@ -31,7 +57,9 @@ export const Header = ({navigation}: any) => {
                 style={styles.earthImage}
               />
               <View style={styles.treasureTroveTextContainer}>
-                <Text style={styles.treasureTroveCoins}>1500 Eco-Coins</Text>
+                <Text style={styles.treasureTroveCoins}>
+                  {studentPoints} Eco-Coins
+                </Text>
                 <Text style={styles.treasureTroveText}>
                   Your recycling efforts are making a world of difference
                 </Text>
@@ -43,6 +71,8 @@ export const Header = ({navigation}: any) => {
     </View>
   );
 };
+
+const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   headerOuterContainer: {
