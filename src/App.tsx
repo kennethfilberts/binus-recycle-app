@@ -22,6 +22,7 @@ import HomeIcon from './assets/icons/HomeIcon';
 import RewardIcon from './assets/icons/RewardIcon';
 import ScanIcon from './assets/icons/ScanIcon';
 import Summary from './screens/Summary/Summary';
+import FAQ from './screens/FAQ/FAQ';
 import ArrowIcon from './assets/icons/ArrowIcon';
 
 const HomeScreen = ({navigation}: any) => {
@@ -123,6 +124,7 @@ const App = () => {
             />
             <Stack.Screen name="User Profile" component={User} />
             <Stack.Screen name="Green Highlights" component={Summary} />
+            <Stack.Screen name="Curiosity Oasis" component={FAQ} />
             <Stack.Screen name="Scan" component={Scan} />
           </Stack.Navigator>
         </NavigationContainer>

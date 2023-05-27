@@ -42,7 +42,7 @@ export const MenuScroll = ({navigation}: any) => {
           cardName={'Curiosity Oasis'}
           navigation={navigation}
           color={lightPinkTheme}
-          destination={'Scan'}
+          destination={'Curiosity Oasis'}
         />
       </ScrollView>
     </View>
