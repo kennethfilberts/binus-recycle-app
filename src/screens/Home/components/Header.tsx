@@ -1,12 +1,17 @@
 import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {lightGreenTheme, blackTheme} from '../../../assets/colors';
 import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/Store';
 import HomeUserIcon from '../../../assets/icons/HomeUserIcon';
 import axios from 'axios';
 
-export const Header = ({navigation}: any) => {
+interface HeaderProps {
+  navigation: any;
+  refreshing: boolean;
+}
+
+export const Header = ({navigation, refreshing}: HeaderProps) => {
   const tempStudentPoints = useSelector(
     (state: RootState) => state.auth.StudentPoints,
   );
@@ -34,7 +39,7 @@ export const Header = ({navigation}: any) => {
     };
 
     fetchEcoCoins();
-  }, [studentID]);
+  }, [studentID, refreshing]);
 
   return (
     <View style={styles.headerOuterContainer}>

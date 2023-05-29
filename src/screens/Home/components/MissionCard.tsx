@@ -61,7 +61,12 @@ interface ProgressData {
   IsCompleted: boolean;
 }
 
-export const MissionCard = ({navigation}: any) => {
+interface MissionCardProps {
+  navigation: any;
+  refreshing: boolean;
+}
+
+export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
   const [firstMission, setFirstMission] = useState<MissionData | null>(null);
   const [firstProgress, setFirstProgress] = useState<ProgressData | null>(null);
 
@@ -76,7 +81,6 @@ export const MissionCard = ({navigation}: any) => {
   const [isLoading, setLoading] = useState(true);
 
   const studentID = useSelector((state: RootState) => state.auth.StudentID);
-
   useEffect(() => {
     console.log(`${process.env.BASE_URL}/api/v1/daily-mission`);
 
@@ -98,7 +102,7 @@ export const MissionCard = ({navigation}: any) => {
     };
 
     fetchMissions();
-  }, []);
+  }, [refreshing]);
 
   useEffect(() => {
     console.log(
