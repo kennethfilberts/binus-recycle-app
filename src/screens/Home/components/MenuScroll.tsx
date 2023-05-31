@@ -32,7 +32,7 @@ export const MenuScroll = ({navigation}: any) => {
         />
         <MenuCard
           imageUrl={imageUrl.greenHighlights}
-          cardName={'Green Highlights'}
+          cardName={'Green\nHighlights'}
           navigation={navigation}
           color={pastelGreenTheme}
           destination={'Green Highlights'}

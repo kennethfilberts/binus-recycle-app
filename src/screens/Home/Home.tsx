@@ -4,8 +4,9 @@ import {
   StatusBar,
   ScrollView,
   Dimensions,
+  RefreshControl,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {
   lightGreenTheme,
   backgroundTheme,
@@ -21,13 +22,25 @@ import {MissionCard} from './components/MissionCard';
 const screenHeight = Dimensions.get('window').height;
 
 const Home = ({navigation}: any) => {
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onHandleRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 500);
+  }, []);
+
   return (
     <View style={styles.outerContainer}>
       <StatusBar backgroundColor={lightGreenTheme} barStyle="dark-content" />
-      <ScrollView>
-        <Header navigation={navigation} />
+      <ScrollView
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onHandleRefresh} />
+        }>
+        <Header navigation={navigation} refreshing={refreshing} />
         <MenuScroll navigation={navigation} />
-        <MissionCard navigation={navigation} />
+        <MissionCard navigation={navigation} refreshing={refreshing} />
       </ScrollView>
     </View>
   );

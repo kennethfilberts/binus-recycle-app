@@ -51,18 +51,22 @@ const categories: Categories = {
 
 interface MissionData {
   MissionID: string;
-  ItemAmount: number;
+  ItemWeight: number;
   CategoryName: string;
 }
 
 interface ProgressData {
-  StudentID: string;
   MissionID: string;
   MissionProgress: number;
   IsCompleted: boolean;
 }
 
-export const MissionCard = ({navigation}: any) => {
+interface MissionCardProps {
+  navigation: any;
+  refreshing: boolean;
+}
+
+export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
   const [firstMission, setFirstMission] = useState<MissionData | null>(null);
   const [firstProgress, setFirstProgress] = useState<ProgressData | null>(null);
 
@@ -77,8 +81,9 @@ export const MissionCard = ({navigation}: any) => {
   const [isLoading, setLoading] = useState(true);
 
   const studentID = useSelector((state: RootState) => state.auth.StudentID);
-
   useEffect(() => {
+    console.log(`${process.env.BASE_URL}/api/v1/daily-mission`);
+
     const fetchMissions = async () => {
       try {
         const response = await axios.get(
@@ -97,24 +102,24 @@ export const MissionCard = ({navigation}: any) => {
     };
 
     fetchMissions();
-  }, []);
+  }, [refreshing]);
 
   useEffect(() => {
+    console.log(
+      `${process.env.BASE_URL}/api/v1/daily-mission/progress/${studentID}`,
+    );
     const fetchMissionProgress = async () => {
       try {
-        const res = await axios.post(
-          `${process.env.BASE_URL}/api/v1/daily-mission/progress`,
-          {
-            studentID,
-          },
+        const res = await axios.get(
+          `${process.env.BASE_URL}/api/v1/daily-mission/progress/${studentID}`,
           {
             timeout: 2000,
           },
         );
 
-        setFirstProgress(res.data.data[0]);
-        setSecondProgress(res.data.data[1]);
-        setThirdProgress(res.data.data[2]);
+        setFirstProgress(res.data.data.firstMissionProgress);
+        setSecondProgress(res.data.data.secondMissionProgress);
+        setThirdProgress(res.data.data.thirdMissionProgress);
       } catch (error) {
         console.log(error);
       }
