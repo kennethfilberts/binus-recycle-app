@@ -28,7 +28,7 @@ export const MenuScroll = ({navigation}: any) => {
           cardName={'Eco Hotspots'}
           navigation={navigation}
           color={darkPurpleTheme}
-          destination={'Scan'}
+          destination={'Eco Hotspots'}
         />
         <MenuCard
           imageUrl={imageUrl.greenHighlights}
