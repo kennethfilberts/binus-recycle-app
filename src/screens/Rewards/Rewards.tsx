@@ -3,7 +3,7 @@ import React from 'react';
 import {backgroundTheme} from '../../assets/colors';
 import {useRewardsData} from '../../redux/hooks/rewardsHook';
 
-const Home = () => {
+const Rewards = () => {
   const rewards = useRewardsData().rewards;
 
   console.log(rewards);
@@ -24,7 +24,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Rewards;
 
 const styles = StyleSheet.create({
   outerContainer: {
