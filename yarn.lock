@@ -6940,6 +6940,16 @@
   "resolved" "https://registry.npmjs.org/redux-persist/-/redux-persist-6.0.0.tgz"
   "version" "6.0.0"
 
+"redux-saga-effects@^1.1.0":
+  "integrity" "sha512-QUbKRDyNutwzH3ncKDAjGjZ02mRITFpgKR19bjRBpUx72uA55X1V8p7dTXAqBDMAH6KWCE7fPm++fAsD04w5Uw=="
+  "resolved" "https://registry.npmjs.org/redux-saga-effects/-/redux-saga-effects-1.1.0.tgz"
+  "version" "1.1.0"
+
+"redux-saga@>=0.8.0 <0.15.0":
+  "integrity" "sha512-BalEND7oMtG7GWdhvgv1WZdarSBeQPpP41of1Dcn2ayeO+1b9VrbrnJ1641rtgC7mByeykq0e9mUG9VdBK3hxw=="
+  "resolved" "https://registry.npmjs.org/redux-saga/-/redux-saga-0.14.8.tgz"
+  "version" "0.14.8"
+
 "redux-thunk@^2.4.2":
   "integrity" "sha512-+P3TjtnP0k/FEjcBL5FZpoovtvrTNT/UXd4/sluaSyrURlSlhLSzEdfsTBW7WsKB6yPvgd7q/iZPICFjW4o57Q=="
   "resolved" "https://registry.npmjs.org/redux-thunk/-/redux-thunk-2.4.2.tgz"
