@@ -17,7 +17,7 @@ import {
 } from './../../assets/colors';
 import EmailIcon from './../../assets/icons/EmailIcon';
 import LockIcon from './../../assets/icons/LockIcon';
-import TextFieldArea from './components/TextFieldArea';
+import TextFieldArea from './Components/TextFieldArea';
 import axios, {AxiosResponse} from 'axios';
 import {clearUserData, setUserData} from '../../redux/reducers/AuthReducer';
 import {RootState, store} from '../../redux/Store';

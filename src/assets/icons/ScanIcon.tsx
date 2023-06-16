@@ -1,16 +1,20 @@
 import * as React from 'react';
 import Svg, {Path, SvgProps, G, Defs, Circle} from 'react-native-svg';
 import {StyleSheet, TouchableOpacity} from 'react-native';
+import { Int32 } from 'react-native/Libraries/Types/CodegenTypes';
 
 interface RewardIconProps extends SvgProps {
   navigation: any;
+  number: Int32
 }
 
-const ScanIcon = ({navigation, ...props}: RewardIconProps) => (
+const ScanIcon = ({navigation, number, ...props}: RewardIconProps) => (
   <TouchableOpacity
     activeOpacity={1}
     onPress={() => {
-      navigation.navigate('Scan');
+      if(number == 1){
+        navigation.navigate('Scan');
+      }
     }}
     style={styles.scanButton}>
     <Svg width={81} height={81} fill="none" {...props}>

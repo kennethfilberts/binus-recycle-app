@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import {redTheme} from '../../../assets/colors';
 import GlassIcon from './images/glass';
@@ -8,11 +8,15 @@ import PlasticIcon from './images/plastic';
 const getWasteType = (icon: string) => {
   switch (icon) {
     case 'Glass':
-      return <GlassIcon />;
+      return <GlassIcon width={512} height={512} svgHeight={80} svgWidth={80}/>;
     case 'Metal':
-      return <MetalIcon />;
+      return <MetalIcon width={512} height={512} svgHeight={80} svgWidth={80}/>;
     case 'Plastic':
-      return <PlasticIcon />;
+      return <PlasticIcon width={512} height={512} svgHeight={80} svgWidth={80}/>;
+    case 'Cardboard':
+      return <Image source={require('../../../assets/images/cardboard.png')} style={{width: 80, height: 80}}/>;
+    case 'Paper':
+      return <Image source={require('../../../assets/images/paper.png')} style={{width: 80, height: 80}}/>;
   }
 };
 

@@ -1,9 +1,8 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import { Int32 } from 'react-native/Libraries/Types/CodegenTypes';
 
 interface StatsProp {
-    value: string,
+    value: any,
     information: string
 }
 

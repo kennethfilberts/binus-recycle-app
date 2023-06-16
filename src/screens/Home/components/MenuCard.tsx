@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface CardProp {
@@ -36,6 +36,7 @@ export const MenuCard = ({
   );
 };
 
+const screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   homeCard: {
     width: 128,
@@ -59,8 +60,9 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: 'Poppins-SemiBold',
     color: 'white',
-    fontSize: 20,
+    //fontSize: 20,
+    fontSize: screenWidth * 0.05,
     width: '100%',
     lineHeight: 24,
-  },
+  },  
 });
