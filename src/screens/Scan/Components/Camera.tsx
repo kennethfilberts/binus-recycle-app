@@ -1,10 +1,11 @@
 import axios from 'axios';
 import {useState} from 'react';
 import {launchCamera} from 'react-native-image-picker';
+import {BASE_URL} from '@env';
 
 const [imageData, setImageData] = useState<any>();
 const [prediction, setPrediction] = useState<any>();
-const urlModel = `${process.env.BASE_URL}/api/v1/model`;
+const urlModel = `${BASE_URL}/api/v1/model`;
 
 const garbageClassification = async (imageData: any) => {
   const formData = new FormData();
