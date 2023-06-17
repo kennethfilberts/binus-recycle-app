@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import Splash from './screens/Splash';
 import Login from './screens/Login/Login';
 import Home from './screens/Home/Home';
@@ -29,6 +29,33 @@ import Rewards from './screens/Rewards/Rewards';
 const HomeScreen = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
 
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+
+  const onPointChangeHandler = useCallback(() => {
+    setShouldRefresh(true);
+  }, []);
+
+  const RenderHome = useCallback(() => {
+    return (
+      <Home
+        onPointChange={onPointChangeHandler}
+        setShouldRefresh={setShouldRefresh}
+        shouldRefresh={shouldRefresh}
+        navigation={navigation}
+      />
+    );
+  }, [navigation, onPointChangeHandler, shouldRefresh]);
+
+  const RenderRewards = useCallback(() => {
+    return (
+      <Rewards
+        onPointChange={onPointChangeHandler}
+        setShouldRefresh={setShouldRefresh}
+        shouldRefresh={shouldRefresh}
+      />
+    );
+  }, [onPointChangeHandler, shouldRefresh]);
+
   const RenderHomeIcon = useCallback(({focused}: {focused: boolean}) => {
     return <HomeIcon color={focused ? blackTheme : darkGreyTheme} />;
   }, []);
@@ -58,7 +85,7 @@ const HomeScreen = ({navigation}: any) => {
       }}>
       <Tab.Screen
         name="home"
-        component={Home}
+        component={RenderHome}
         options={{
           tabBarIcon: RenderHomeIcon,
           tabBarShowLabel: false,
@@ -76,7 +103,7 @@ const HomeScreen = ({navigation}: any) => {
 
       <Tab.Screen
         name="redeem"
-        component={Rewards}
+        component={RenderRewards}
         options={{
           tabBarIcon: RenderRewardIcon,
           tabBarShowLabel: false,
@@ -91,6 +118,22 @@ const App = () => {
 
   const Stack = createStackNavigator();
   const RenderArrowIcon = useCallback(() => <ArrowIcon rotation={0} />, []);
+
+  const [shouldRefresh, setShouldRefresh] = useState(false);
+
+  const onPointChangeHandler = useCallback(() => {
+    setShouldRefresh(true);
+  }, []);
+
+  const RenderRewards = useCallback(() => {
+    return (
+      <Rewards
+        onPointChange={onPointChangeHandler}
+        setShouldRefresh={setShouldRefresh}
+        shouldRefresh={shouldRefresh}
+      />
+    );
+  }, [onPointChangeHandler, shouldRefresh]);
 
   return (
     <Provider store={store}>
@@ -127,7 +170,7 @@ const App = () => {
             <Stack.Screen name="Green Highlights" component={Summary} />
             <Stack.Screen name="Eco Hotspots" component={Location} />
             <Stack.Screen name="Curiosity Oasis" component={FAQ} />
-            <Stack.Screen name="Rewards" component={Rewards} />
+            <Stack.Screen name="Rewards" component={RenderRewards} />
             <Stack.Screen name="Scan" component={Scan} />
           </Stack.Navigator>
         </NavigationContainer>

@@ -6,6 +6,8 @@ import {RootState} from '../../../redux/Store';
 import HomeUserIcon from '../../../assets/icons/HomeUserIcon';
 import axios from 'axios';
 import {BASE_URL} from '@env';
+import {store} from '../../../redux/Store';
+import {setUserPoints} from '../../../redux/reducers/AuthReducer';
 
 interface HeaderProps {
   navigation: any;
@@ -34,6 +36,7 @@ export const Header = ({navigation, refreshing}: HeaderProps) => {
         );
 
         setStudentPoints(response.data.data.StudentPoints);
+        store.dispatch(setUserPoints(response.data.data.StudentPoints));
       } catch (error) {
         console.log(error);
       }

@@ -6,7 +6,7 @@ import {
   Dimensions,
   RefreshControl,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   lightGreenTheme,
   backgroundTheme,
@@ -21,8 +21,32 @@ import {MissionCard} from './components/MissionCard';
 
 const screenHeight = Dimensions.get('window').height;
 
-const Home = ({navigation}: any) => {
+interface HomeProps {
+  onPointChange: () => void;
+  setShouldRefresh: (inputBoolean: boolean) => void;
+  shouldRefresh: boolean;
+  navigation: any;
+}
+
+const Home = ({
+  onPointChange,
+  setShouldRefresh,
+  shouldRefresh,
+  navigation,
+}: HomeProps) => {
   const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    if (refreshing) {
+      onPointChange();
+    }
+  }, [refreshing, onPointChange]);
+
+  useEffect(() => {
+    if (shouldRefresh) {
+      setShouldRefresh(false);
+    }
+  }, [setShouldRefresh, shouldRefresh]);
 
   const onHandleRefresh = React.useCallback(() => {
     setRefreshing(true);
