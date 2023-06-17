@@ -16,6 +16,7 @@ import {
   blackTheme,
   lightGreenTheme,
 } from '../../assets/colors';
+import {BASE_URL} from '@env';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -45,11 +46,11 @@ export default function EcoHotspots() {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log(`${process.env.BASE_URL}/api/v1/station`);
+    console.log(`${BASE_URL}/api/v1/station`);
     const loadStations = async () => {
       try {
         const res = await axios.get<LocationResponse>(
-          `${process.env.BASE_URL}/api/v1/station`,
+          `${BASE_URL}/api/v1/station`,
           {
             timeout: 2000,
           },

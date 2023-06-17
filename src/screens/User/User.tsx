@@ -3,27 +3,54 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Image,
   StatusBar,
+  Image,
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Info} from './components/Info';
 import {backgroundTheme, blackTheme} from '../../assets/colors';
-import { useSelector } from 'react-redux';
-import { RootState } from 'src/redux/Store';
+import {useSelector} from 'react-redux';
+import {RootState} from 'src/redux/Store';
+import {clearUserData} from '../../redux/reducers/AuthReducer';
+import {store} from '../../redux/Store';
 
-export default function User() {
-  const studentName = useSelector((state: RootState) => state.auth.StudentName)
-  const studentEmail = useSelector((state: RootState) => state.auth.StudentEmail)
-  const studentID = useSelector((state: RootState) => state.auth.StudentID)
-  const studentPoints = useSelector((state: RootState) => state.auth.StudentPoints);
+export default function User({navigation}: any) {
+  const studentName = useSelector((state: RootState) => state.auth.StudentName);
+  const studentEmail = useSelector(
+    (state: RootState) => state.auth.StudentEmail,
+  );
+  const studentID = useSelector((state: RootState) => state.auth.StudentID);
+  const studentPoints = useSelector(
+    (state: RootState) => state.auth.StudentPoints,
+  );
+
+  const changePassword = () => {
+    console.log('changePassword');
+  };
+
+  const setNotifications = () => {
+    console.log('setNotifications');
+  };
+
+  const supportCenter = () => {
+    console.log('supportCenter');
+  };
+
+  const logOut = () => {
+    console.log('logOut');
+    navigation.replace('login');
+    store.dispatch(clearUserData());
+  };
 
   return (
     <View style={styles.body}>
       <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
       <View>
         <TouchableOpacity style={styles.picture_profile}>
-          {/* <Image source={}/> */}
+          <Image
+            source={require('../../assets/images/userSprite.png')}
+            style={styles.userImage}
+          />
         </TouchableOpacity>
       </View>
 
@@ -37,13 +64,25 @@ export default function User() {
 
       <View style={styles.info_card}>
         <View style={styles.info_card_detail}>
-          <Info imageIcon={'pass'} itemText={'Change Password'}></Info>
+          <Info
+            imageIcon={'pass'}
+            itemText={'Change Password'}
+            action={changePassword}
+          />
           <View style={styles.line} />
-          <Info imageIcon={'notif'} itemText={'Set Notification'}></Info>
+          <Info
+            imageIcon={'notif'}
+            itemText={'Set Notification'}
+            action={setNotifications}
+          />
           <View style={styles.line} />
-          <Info imageIcon={'help'} itemText={'Support Center'}></Info>
+          <Info
+            imageIcon={'help'}
+            itemText={'Support Center'}
+            action={supportCenter}
+          />
           <View style={styles.line} />
-          <Info imageIcon={'logout'} itemText={'Log Out'}></Info>
+          <Info imageIcon={'logout'} itemText={'Log Out'} action={logOut} />
         </View>
       </View>
     </View>
@@ -64,6 +103,8 @@ const styles = StyleSheet.create({
     height: 120,
     borderRadius: 10,
     marginTop: '10%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   text_bold: {
@@ -118,5 +159,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#BBBBBB',
     width: '100%',
     height: 1,
+  },
+
+  userImage: {
+    height: '65%',
+    width: '65%',
+    resizeMode: 'contain',
   },
 });

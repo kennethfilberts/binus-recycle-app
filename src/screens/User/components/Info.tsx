@@ -1,15 +1,15 @@
 import React from 'react';
-import {Text, StyleSheet, View} from 'react-native';
+import {Text, StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import PassIcon from './icons/PassIcon';
 import NotifIcon from './icons/NotifIcon';
 import HelpIcon from './icons/HelpIcon';
 import LogoutIcon from './icons/LogoutIcon';
-import {blackTheme} from '../../../assets/colors';
 
-interface Info {
+interface InfoProps {
   imageIcon: string;
   itemText: string;
+  action: () => void;
 }
 
 const getIcons = (image: string) => {
@@ -25,11 +25,11 @@ const getIcons = (image: string) => {
   }
 };
 
-export const Info = ({imageIcon, itemText}: Info) => {
+export const Info = ({imageIcon, itemText, action}: InfoProps) => {
   const icon = getIcons(imageIcon);
 
   return (
-    <TouchableOpacity style={styles.box_item}>
+    <TouchableOpacity style={styles.box_item} onPress={action}>
       {icon}
       <Text style={styles.item_text}>{itemText}</Text>
     </TouchableOpacity>

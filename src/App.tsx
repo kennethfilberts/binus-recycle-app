@@ -3,7 +3,6 @@ import Splash from './screens/Splash';
 import Login from './screens/Login/Login';
 import Home from './screens/Home/Home';
 import Scan from './screens/Scan/Scan';
-import Redeem from './screens/Redeem';
 import User from './screens/User/User';
 import {createStackNavigator} from '@react-navigation/stack';
 import {NavigationContainer} from '@react-navigation/native';
@@ -39,7 +38,7 @@ const HomeScreen = ({navigation}: any) => {
   }, []);
 
   const RenderScanIcon = useCallback(
-    () => <ScanIcon navigation={navigation} number={1}/>,
+    () => <ScanIcon navigation={navigation} number={1} />,
     [navigation],
   );
 

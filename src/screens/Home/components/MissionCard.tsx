@@ -14,6 +14,7 @@ import {MissionItemLoading} from './MissionItemLoading';
 import axios from 'axios';
 import {RootState} from 'src/redux/Store';
 import {useSelector} from 'react-redux';
+import {BASE_URL} from '@env';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -82,16 +83,13 @@ export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
 
   const studentID = useSelector((state: RootState) => state.auth.StudentID);
   useEffect(() => {
-    console.log(`${process.env.BASE_URL}/api/v1/daily-mission`);
+    console.log(`${BASE_URL}/api/v1/daily-mission`);
 
     const fetchMissions = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.BASE_URL}/api/v1/daily-mission`,
-          {
-            timeout: 2000,
-          },
-        );
+        const response = await axios.get(`${BASE_URL}/api/v1/daily-mission`, {
+          timeout: 2000,
+        });
 
         setFirstMission(response.data.data[0]);
         setSecondMission(response.data.data[1]);
@@ -105,13 +103,11 @@ export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
   }, [refreshing]);
 
   useEffect(() => {
-    console.log(
-      `${process.env.BASE_URL}/api/v1/daily-mission/progress/${studentID}`,
-    );
+    console.log(`${BASE_URL}/api/v1/daily-mission/progress/${studentID}`);
     const fetchMissionProgress = async () => {
       try {
         const res = await axios.get(
-          `${process.env.BASE_URL}/api/v1/daily-mission/progress/${studentID}`,
+          `${BASE_URL}/api/v1/daily-mission/progress/${studentID}`,
           {
             timeout: 2000,
           },

@@ -17,12 +17,13 @@ import {
 } from './../../assets/colors';
 import EmailIcon from './../../assets/icons/EmailIcon';
 import LockIcon from './../../assets/icons/LockIcon';
-import TextFieldArea from './Components/TextFieldArea';
+import TextFieldArea from './components/TextFieldArea';
 import axios, {AxiosResponse} from 'axios';
-import {clearUserData, setUserData} from '../../redux/reducers/AuthReducer';
+import {setUserData} from '../../redux/reducers/AuthReducer';
 import {RootState, store} from '../../redux/Store';
 import {useSelector} from 'react-redux';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
+import {BASE_URL} from '@env';
 
 const Login = ({navigation}: any) => {
   //store.dispatch(clearUserData()); //this is just here for ease of debugging, delete this later in production
@@ -112,7 +113,7 @@ const Login = ({navigation}: any) => {
     setLoading(true);
     axios
       .post(
-        `${process.env.BASE_URL}/api/v1/student/login`,
+        `${BASE_URL}/api/v1/student/login`,
         {
           email,
           password,

@@ -28,6 +28,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from 'src/redux/Store';
 import axios from 'axios';
 import {RefreshControl} from 'react-native-gesture-handler';
+import {BASE_URL} from '@env';
 
 export default function Summary() {
   const [recycledItem, setRecycledItem] = useState<Float | null>(null);
@@ -35,18 +36,6 @@ export default function Summary() {
   const [missionDone, setMissionDone] = useState<Int32 | null>(null);
   const [totalCoinsEarned, setTotalCoinsEarned] = useState<Int32 | null>(null);
   const [totalCoinsSpent, setTotalCoinsSpent] = useState<Int32 | null>(null);
-
-  const [categoryIdList, setCategoryList] = useState<String[] | null>(null);
-  useEffect(() => {
-    const getCategotyId = async () => {
-      const datas = await axios.get(urlCategory, {timeout: 3000});
-      const data = datas.data.data.map((id: any) => id.CategoryID);
-      setCategoryList(data);
-    };
-
-    getCategotyId();
-  }, []);
-
   const [cardboard, setCardboard] = useState<Float>(0);
   const [paper, setPaper] = useState<Float>(0);
   const [plastic, setPlastic] = useState<Float>(0);
@@ -56,12 +45,23 @@ export default function Summary() {
   const [refreshing, setRefreshing] = useState(false);
 
   const studentId = useSelector((state: RootState) => state.auth.StudentID);
-  const urlCategory = `${process.env.BASE_URL}/api/v1/category`;
-  const urlRecycledItem = `${process.env.BASE_URL}/api/v1/recycle/history/${studentId}`;
-  const urlMissionDone = `${process.env.BASE_URL}/api/v1/daily-mission/history/${studentId}`;
-  const urlEcoSpent = `${process.env.BASE_URL}/api/v1/purchase/history/${studentId}`;
+  const urlCategory = `${BASE_URL}/api/v1/category`;
+  const urlRecycledItem = `${BASE_URL}/api/v1/recycle/history/${studentId}`;
+  const urlMissionDone = `${BASE_URL}/api/v1/daily-mission/history/${studentId}`;
+  const urlEcoSpent = `${BASE_URL}/api/v1/purchase/history/${studentId}`;
 
   const [favouriteCategory, setFavouriteCategory] = useState<string>('');
+  const [categoryIdList, setCategoryList] = useState<String[] | null>(null);
+
+  useEffect(() => {
+    const getCategoryId = async () => {
+      const datas = await axios.get(urlCategory, {timeout: 3000});
+      const data = datas.data.data.map((id: any) => id.CategoryID);
+      setCategoryList(data);
+    };
+
+    getCategoryId();
+  }, [urlCategory]);
 
   const onRefresh = () => {
     setRefreshing(true);
@@ -75,12 +75,13 @@ export default function Summary() {
     const getTotalCategoryWeight = () => {
       categoryIdList?.map(async (id: String) => {
         const response = await axios.get(
-          `${process.env.BASE_URL}/api/v1/recycle/history/${studentId}/${id}`,
+          `${BASE_URL}/api/v1/recycle/history/${studentId}/${id}`,
           {timeout: 3000},
         );
         const total =
           Math.round(
             response.data.data.reduce(
+              // eslint-disable-next-line @typescript-eslint/no-shadow
               (sum: any, id: any) => (sum += id.ItemWeight),
               0,
             ) * 100,
@@ -124,17 +125,19 @@ export default function Summary() {
     const getTotalTransaction = async () => {
       const response = await axios.get(urlRecycledItem, {timeout: 3000});
       const data = response.data.data;
-      const total =
-        Math.round(
-          data.reduce((sum: any, id: any) => sum + id.ItemWeight, 0) * 100,
-        ) / 100;
+
+      const total = parseFloat(
+        data
+          .reduce((sum: number, item: any) => sum + item.ItemWeight, 0)
+          .toFixed(1),
+      );
 
       setRecycledItem(total);
       setTotalTransaction(response.data.data.length);
     };
 
     getTotalTransaction();
-  }, []);
+  }, [urlRecycledItem]);
 
   useEffect(() => {
     const getTotalMissionDone = async () => {
@@ -150,7 +153,7 @@ export default function Summary() {
     };
 
     getTotalMissionDone();
-  }, []);
+  }, [urlMissionDone]);
 
   useEffect(() => {
     const getCoinSpent = async () => {
@@ -165,7 +168,7 @@ export default function Summary() {
     };
 
     getCoinSpent();
-  }, []);
+  }, [urlEcoSpent]);
 
   return (
     <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>

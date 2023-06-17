@@ -5,6 +5,7 @@ import {useSelector} from 'react-redux';
 import {RootState} from '../../../redux/Store';
 import HomeUserIcon from '../../../assets/icons/HomeUserIcon';
 import axios from 'axios';
+import {BASE_URL} from '@env';
 
 interface HeaderProps {
   navigation: any;
@@ -21,12 +22,12 @@ export const Header = ({navigation, refreshing}: HeaderProps) => {
   const [studentPoints, setStudentPoints] = useState(tempStudentPoints);
 
   useEffect(() => {
-    console.log(`${process.env.BASE_URL}/api/v1/student/${studentID}`);
+    console.log(`${BASE_URL}/api/v1/student/${studentID}`);
 
     const fetchEcoCoins = async () => {
       try {
         const response = await axios.get(
-          `${process.env.BASE_URL}/api/v1/student/${studentID}`,
+          `${BASE_URL}/api/v1/student/${studentID}`,
           {
             timeout: 2000,
           },

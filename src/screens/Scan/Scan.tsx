@@ -1,17 +1,18 @@
-import {ImageBackground, StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image} from 'react-native';
 import React, {useState} from 'react';
 import {launchCamera} from 'react-native-image-picker';
-import {backgroundTheme, darkGreenTheme, pastelGreenTheme} from '../../assets/colors';
+import {backgroundTheme, darkGreenTheme} from '../../assets/colors';
 import CategoryCard from './Components/CategoryCard';
 import ScanIcon from '../../assets/icons/ScanIcon';
 import axios from 'axios';
+import {BASE_URL} from '@env';
 
 export default function Scan() {
   const [imageData, setImageData] = useState<any>();
   const [prediction, setPrediction] = useState<any>();
-  const urlModel = `${process.env.BASE_URL}/api/v1/model`;
+  const urlModel = `${BASE_URL}/api/v1/model`;
 
-  const garbageClassification = async (imageData: any) => {
+  const garbageClassification = async () => {
     const formData = new FormData();
     formData.append('image', {
       name: 'image.jpg',
@@ -49,7 +50,7 @@ export default function Scan() {
           if (res.assets != null) {
             const data = res.assets[0];
             setImageData(data);
-            garbageClassification(data);
+            garbageClassification();
           }
         }
       },
@@ -59,9 +60,7 @@ export default function Scan() {
   return (
     <View style={styles.body}>
       {imageData != null && (
-        <Image
-          source={{uri: imageData.uri}}
-          style={styles.image}/>
+        <Image source={{uri: imageData.uri}} style={styles.image} />
       )}
 
       <ScanIcon
@@ -71,7 +70,7 @@ export default function Scan() {
         style={styles.button}
       />
 
-      {imageData != null && (<CategoryCard type={prediction} />)}
+      {imageData != null && <CategoryCard type={prediction} />}
     </View>
   );
 }
