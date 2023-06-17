@@ -15,7 +15,7 @@ interface Category {
 
 interface MissionData {
   CategoryName: string;
-  ItemAmount: number;
+  ItemWeight: number;
 }
 
 interface ProgressData {
@@ -47,7 +47,7 @@ export const MissionItem = ({
         </View>
         <View style={styles.infoContainer}>
           <Text style={styles.missionName}>
-            Recycle {missionData?.ItemAmount} {missionData?.CategoryName}(s)
+            Recycle {missionData?.ItemWeight}Kg {missionData?.CategoryName}
           </Text>
           <View
             style={[
@@ -61,7 +61,9 @@ export const MissionItem = ({
             <Text style={styles.completionText}>
               {progressData?.IsCompleted
                 ? 'Completed'
-                : `Pending (${progressData?.MissionProgress}/${missionData?.ItemAmount})`}
+                : `Pending (${progressData?.MissionProgress.toFixed(2)}/${
+                    missionData?.ItemWeight
+                  })`}
             </Text>
           </View>
         </View>
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
     marginLeft: '5%',
   },
   completion: {
-    width: screenWidth * 0.3,
+    width: screenWidth * 0.35,
     height: '35%',
     borderRadius: 15,
     alignItems: 'center',

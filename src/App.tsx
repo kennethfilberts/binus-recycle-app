@@ -23,6 +23,9 @@ import RewardIcon from './assets/icons/RewardIcon';
 import ScanIcon from './assets/icons/ScanIcon';
 import Summary from './screens/Summary/Summary';
 import ArrowIcon from './assets/icons/ArrowIcon';
+import Location from './screens/Location/Location';
+import FAQ from './screens/FAQ/FAQ';
+import Rewards from './screens/Rewards/Rewards';
 
 const HomeScreen = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
@@ -74,7 +77,7 @@ const HomeScreen = ({navigation}: any) => {
 
       <Tab.Screen
         name="redeem"
-        component={Redeem}
+        component={Rewards}
         options={{
           tabBarIcon: RenderRewardIcon,
           tabBarShowLabel: false,
@@ -123,6 +126,9 @@ const App = () => {
             />
             <Stack.Screen name="User Profile" component={User} />
             <Stack.Screen name="Green Highlights" component={Summary} />
+            <Stack.Screen name="Eco Hotspots" component={Location} />
+            <Stack.Screen name="Curiosity Oasis" component={FAQ} />
+            <Stack.Screen name="Rewards" component={Rewards} />
             <Stack.Screen name="Scan" component={Scan} />
           </Stack.Navigator>
         </NavigationContainer>

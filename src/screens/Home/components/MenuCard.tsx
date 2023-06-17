@@ -60,7 +60,6 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     fontFamily: 'Poppins-SemiBold',
     color: 'white',
-    //fontSize: 20,
     fontSize: screenWidth * 0.05,
     width: '100%',
     lineHeight: 24,
