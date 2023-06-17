@@ -9,18 +9,14 @@ import {
 import React, {useEffect, useState} from 'react';
 import {Info} from './components/Info';
 import {backgroundTheme, blackTheme} from '../../assets/colors';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/redux/Store';
 
 export default function User() {
-  const [user, setUser] = useState<any>(null);
-
-  // useEffect(() => {
-  //   fetch('https://dummyjson.com/products/1')
-  //     .then(res => res.json())
-  //     .then(data => {
-  //       console.log(data);
-  //       setUser(data);
-  //     });
-  // }, [user]);
+  const studentName = useSelector((state: RootState) => state.auth.StudentName)
+  const studentEmail = useSelector((state: RootState) => state.auth.StudentEmail)
+  const studentID = useSelector((state: RootState) => state.auth.StudentID)
+  const studentPoints = useSelector((state: RootState) => state.auth.StudentPoints);
 
   return (
     <View style={styles.body}>
@@ -31,12 +27,12 @@ export default function User() {
         </TouchableOpacity>
       </View>
 
-      <Text style={styles.text_bold}>Daniel Yohanes</Text>
-      <Text style={styles.text_normal}>daniel.yohanes@binus.ac.id</Text>
-      <Text style={styles.text_normal}>2501975261</Text>
+      <Text style={styles.text_bold}>{studentName}</Text>
+      <Text style={styles.text_normal}>{studentEmail}</Text>
+      <Text style={styles.text_normal}>{studentID}</Text>
 
       <View style={styles.eco_card}>
-        <Text style={styles.eco_text}>1500 Eco-Coins</Text>
+        <Text style={styles.eco_text}>{studentPoints} Eco-Coins</Text>
       </View>
 
       <View style={styles.info_card}>

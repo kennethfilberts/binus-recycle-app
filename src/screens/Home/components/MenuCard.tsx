@@ -37,7 +37,6 @@ export const MenuCard = ({
 };
 
 const screenWidth = Dimensions.get('window').width;
-
 const styles = StyleSheet.create({
   homeCard: {
     width: 128,
@@ -64,5 +63,5 @@ const styles = StyleSheet.create({
     fontSize: screenWidth * 0.05,
     width: '100%',
     lineHeight: 24,
-  },
+  },  
 });

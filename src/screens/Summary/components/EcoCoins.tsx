@@ -5,8 +5,8 @@ import RecycleIcon from './images/recycle';
 import {bluePurpleTheme} from '../../../assets/colors';
 
 interface Param {
-  spent: Int32;
-  gathered: Int32;
+  spent: Int32 | null;
+  gathered: Int32 | null;
 }
 
 export const EcoCoins = ({spent, gathered}: Param) => {
