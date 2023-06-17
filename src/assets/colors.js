@@ -17,3 +17,7 @@ export const lightBlueTheme = '#BAE5F4';
 export const redTheme = '#FF7A6B';
 export const darkGreyTheme = '#B4BBB6';
 export const bluePurpleTheme = '#A3A7E4';
+export const shadowColorTheme = '#959da5';
+export const notchGreyTheme = '#D9D9D9';
+export const disabledHotPinkTheme = '#FFAACC';
+export const whiteTheme = '#F7F7F7';

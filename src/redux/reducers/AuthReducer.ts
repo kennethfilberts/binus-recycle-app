@@ -36,11 +36,14 @@ const authSlice = createSlice({
       state.StudentImage = action.payload.StudentImage;
       state.StudentPoints = action.payload.StudentPoints;
     },
+    setUserPoints: (state, action: PayloadAction<number>) => {
+      state.StudentPoints += action.payload;
+    },
     clearUserData: () => {
       return initialState;
     },
   },
 });
 
-export const {setUserData, clearUserData} = authSlice.actions;
+export const {setUserData, clearUserData, setUserPoints} = authSlice.actions;
 export default authSlice.reducer;

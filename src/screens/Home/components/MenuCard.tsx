@@ -63,5 +63,5 @@ const styles = StyleSheet.create({
     fontSize: screenWidth * 0.05,
     width: '100%',
     lineHeight: 24,
-  },  
+  },
 });
