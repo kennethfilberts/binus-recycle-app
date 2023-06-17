@@ -1,7 +1,7 @@
 import React from 'react';
 import {SvgProps} from 'react-native-svg';
 import {Text, StyleSheet, View, TextInput} from 'react-native';
-import {darkGreyTheme} from './../../../assets/colors';
+import {darkGreyTheme} from '../../../assets/colors';
 
 interface TextFieldAreaProps {
   fieldHeader: string;

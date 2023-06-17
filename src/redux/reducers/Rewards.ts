@@ -26,7 +26,6 @@ const rewardsSlice = createSlice({
     },
     getRewardsSuccess: (state, action) => {
       state.isLoading = false;
-      console.log('bruh');
       state.rewards = action.payload;
     },
     getRewardsError: state => {

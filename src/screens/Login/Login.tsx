@@ -24,6 +24,7 @@ import {RootState, store} from '../../redux/Store';
 import {useSelector} from 'react-redux';
 import changeNavigationBarColor from 'react-native-navigation-bar-color';
 
+
 const Login = ({navigation}: any) => {
   //store.dispatch(clearUserData()); //this is just here for ease of debugging, delete this later in production
   const token = useSelector((state: RootState) => state.auth.Token);
@@ -36,6 +37,7 @@ const Login = ({navigation}: any) => {
   const [isKeyboardActive, setIsKeyboardActive] = useState(false);
 
   useEffect(() => {
+    // console.log(`${process.env.BASE_URL}`)
     if (token) {
       changeNavigationBarColor(greyTheme, true);
       navigation.replace('home-screen');
@@ -108,7 +110,7 @@ const Login = ({navigation}: any) => {
     if (checkEmptyField() || checkEmail()) {
       return;
     }
-
+console.log(`${process.env.BASE_URL}/api/v1/student/login`)
     setLoading(true);
     axios
       .post(

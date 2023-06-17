@@ -1,6 +1,7 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
   "compilerOptions": {
+    "types": ["jest","node"],
     "strict": true,
     "baseUrl": ".", // this must be specified if "paths" is specified.
     "paths": {
