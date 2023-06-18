@@ -88,17 +88,19 @@ export const PurchaseModal = ({
     }
   }, [isPurchaseModalVisible, studentID]);
 
+  const checkAmount = (currAmount: number) => {
+    setIsValid(currAmount * (RewardData?.RewardPoints ?? 0) <= studentPoints);
+  };
+
   const addAmount = () => {
     setAmount(amount + 1);
-    (amount + 1) * (RewardData?.RewardPoints ?? 0) > studentPoints
-      ? setIsValid(false)
-      : setIsValid(true);
+    checkAmount(amount + 1);
   };
 
   const subtractAmount = () => {
-    if (amount > 0) {
+    if (amount > 1) {
       setAmount(amount - 1);
-      setIsValid(amount - 1 > 0);
+      checkAmount(amount - 1);
     }
   };
 

@@ -37,7 +37,7 @@ const authSlice = createSlice({
       state.StudentPoints = action.payload.StudentPoints;
     },
     setUserPoints: (state, action: PayloadAction<number>) => {
-      state.StudentPoints += action.payload;
+      state.StudentPoints = action.payload;
     },
     clearUserData: () => {
       return initialState;

@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, Dimensions} from 'react-native';
 import React from 'react';
 import GlassIcon from '../../Summary/components/images/glass';
 import PlasticIcon from '../../Summary/components/images/plastic';
@@ -6,8 +6,12 @@ import MetalIcon from '../../Summary/components/images/metal';
 import ArrowIcon from '../../../assets/icons/ArrowIcon';
 import {
   blackTheme,
-  darkGreenTheme,
-  lightPinkTheme,
+  greyTheme,
+  lightGreenTheme,
+  lightPurpleTheme,
+  lightYellowTheme,
+  redTheme,
+  yellowGreenTheme,
 } from '../../../assets/colors';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -15,6 +19,21 @@ interface setParam {
   type: String;
   navigation: any;
 }
+
+const getColor = (type: String) => {
+  switch (type) {
+    case 'Glass':
+      return lightPurpleTheme;
+    case 'Plastic':
+      return lightYellowTheme;
+    case 'Metal':
+      return yellowGreenTheme;
+    case 'Cardboard':
+      return lightGreenTheme;
+    case 'Paper':
+      return redTheme;
+  }
+};
 
 const getIcon = (type: String) => {
   switch (type) {
@@ -34,6 +53,7 @@ const getIcon = (type: String) => {
       return (
         <Image
           source={require('../../../assets/images/cardboard.png')}
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{width: 60, height: 60}}
         />
       );
@@ -41,6 +61,7 @@ const getIcon = (type: String) => {
       return (
         <Image
           source={require('../../../assets/images/paper.png')}
+          // eslint-disable-next-line react-native/no-inline-styles
           style={{width: 60, height: 60}}
         />
       );
@@ -49,47 +70,59 @@ const getIcon = (type: String) => {
 
 export default function CategoryCard({navigation, type}: setParam) {
   const getType = getIcon(type);
+  const color = getColor(type);
 
   return (
-    <TouchableOpacity
-      onPress={() => {
-        navigation.navigate('Eco Hotspots');
-      }}>
+    <View style={styles.outerBody}>
       <View style={styles.body}>
-        <View style={styles.image_box}>
-          <View>{getType}</View>
-        </View>
+        <View style={styles.imageInfoContainer}>
+          <View style={[styles.image_box, {backgroundColor: color}]}>
+            <View>{getType}</View>
+          </View>
 
-        <View style={styles.text_box}>
-          <Text style={styles.text}>{type}</Text>
-          <Text style={styles.sub_text}>See Location</Text>
+          <View style={styles.text_box}>
+            <Text style={styles.text}>{type}</Text>
+            <Text style={styles.sub_text}>See Location</Text>
+          </View>
         </View>
-
-        <View>
+        <TouchableOpacity
+          activeOpacity={1}
+          onPress={() => {
+            navigation.navigate('Eco Hotspots');
+          }}>
           <ArrowIcon rotation={180} />
-        </View>
+        </TouchableOpacity>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 }
 
+const screenWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
+  outerBody: {
+    width: screenWidth * 0.85,
+  },
   body: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#FFFFFF',
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 10,
-    borderColor: darkGreenTheme,
-    borderWidth: 3,
+    borderColor: blackTheme,
+    borderWidth: 2,
     marginBottom: 5,
     gap: 5,
   },
 
+  imageInfoContainer: {
+    flexDirection: 'row',
+  },
+
   image_box: {
-    backgroundColor: lightPinkTheme,
+    backgroundColor: greyTheme,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

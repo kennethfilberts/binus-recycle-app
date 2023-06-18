@@ -7,6 +7,7 @@ import {
   darkYellowTheme,
   pastelGreenTheme,
 } from '../../../assets/colors';
+import {launchCamera} from 'react-native-image-picker';
 
 interface Category {
   source: any;
@@ -38,6 +39,24 @@ export const MissionItem = ({
   missionData,
   progressData,
 }: MissionItemProps) => {
+  const openCamera = () => {
+    launchCamera(
+      {mediaType: 'photo', quality: 1, includeBase64: true},
+      async res => {
+        if (res.didCancel) {
+          console.log('User cancelled');
+        } else if (res.errorCode) {
+          console.log(res.errorMessage);
+        } else {
+          if (res.assets != null) {
+            const data = res.assets[0];
+            navigation.navigate('Scan', {route: data.uri});
+          }
+        }
+      },
+    );
+  };
+
   return (
     <View style={styles.missionItem}>
       <View style={styles.imageAndInfoContainer}>
@@ -71,9 +90,7 @@ export const MissionItem = ({
 
       <TouchableOpacity
         activeOpacity={1}
-        onPress={() => {
-          navigation.navigate('Scan');
-        }}
+        onPress={openCamera}
         style={styles.arrow}>
         <ArrowIcon rotation={180} />
       </TouchableOpacity>

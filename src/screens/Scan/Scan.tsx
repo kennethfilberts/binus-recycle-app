@@ -1,7 +1,7 @@
-import {StyleSheet, View, Image} from 'react-native';
+import {StyleSheet, View, Image, StatusBar} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {backgroundTheme, darkGreenTheme} from '../../assets/colors';
-import CategoryCard from './Components/CategoryCard';
+import {backgroundTheme, blackTheme} from '../../assets/colors';
+import CategoryCard from './components/CategoryCard';
 import ScanIcon from '../../assets/icons/ScanIcon';
 import axios from 'axios';
 import {BASE_URL} from '@env';
@@ -38,17 +38,20 @@ export default function Scan({navigation, route}: any) {
     };
 
     garbageClassification();
-  }, [route.params.route]);
+  }, [route.params.route, urlModel]);
 
   return (
     <View style={styles.body}>
       {route.params != null && (
         <Image source={{uri: route.params.route}} style={styles.image} />
       )}
+      <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
 
       <ScanIcon navigation={navigation} style={styles.button} />
 
-      {route.params != null && <CategoryCard type={prediction} navigation={navigation}/>}
+      {route.params != null && (
+        <CategoryCard type={prediction} navigation={navigation} />
+      )}
     </View>
   );
 }
@@ -71,8 +74,8 @@ const styles = StyleSheet.create({
     height: '60%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: darkGreenTheme,
-    borderWidth: 5,
+    borderColor: blackTheme,
+    borderWidth: 2,
     borderRadius: 20,
   },
 });
