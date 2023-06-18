@@ -1,76 +1,54 @@
 import {StyleSheet, View, Image} from 'react-native';
-import React, {useState} from 'react';
-import {launchCamera} from 'react-native-image-picker';
+import React, {useEffect, useState} from 'react';
 import {backgroundTheme, darkGreenTheme} from '../../assets/colors';
 import CategoryCard from './Components/CategoryCard';
 import ScanIcon from '../../assets/icons/ScanIcon';
 import axios from 'axios';
 import {BASE_URL} from '@env';
 
-export default function Scan() {
-  const [imageData, setImageData] = useState<any>();
+export default function Scan({navigation, route}: any) {
   const [prediction, setPrediction] = useState<any>();
   const urlModel = `${BASE_URL}/api/v1/model`;
 
-  const garbageClassification = async () => {
-    const formData = new FormData();
-    formData.append('image', {
-      name: 'image.jpg',
-      type: 'image/jpeg',
-      uri: imageData.uri,
-    });
-
-    try {
-      const response = await axios.post(urlModel, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+  useEffect(() => {
+    const garbageClassification = async () => {
+      const formData = new FormData();
+      formData.append('image', {
+        name: 'image.jpg',
+        type: 'image/jpeg',
+        uri: route.params.route,
       });
 
-      if (response.status === 200) {
-        console.log(response.data.class);
-        setPrediction(response.data.class);
-      } else {
-        console.log(response.status);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+      try {
+        const response = await axios.post(urlModel, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
 
-  const openCamera = () => {
-    launchCamera(
-      {mediaType: 'photo', quality: 1, includeBase64: true},
-      async res => {
-        if (res.didCancel) {
-          console.log('User cancelled');
-        } else if (res.errorCode) {
-          console.log(res.errorMessage);
+        if (response.status === 200) {
+          console.log(response.data.class);
+          setPrediction(response.data.class);
         } else {
-          if (res.assets != null) {
-            const data = res.assets[0];
-            setImageData(data);
-            garbageClassification();
-          }
+          console.log(response.status);
         }
-      },
-    );
-  };
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    garbageClassification();
+  }, [route.params.route]);
 
   return (
     <View style={styles.body}>
-      {imageData != null && (
-        <Image source={{uri: imageData.uri}} style={styles.image} />
+      {route.params != null && (
+        <Image source={{uri: route.params.route}} style={styles.image} />
       )}
 
-      <ScanIcon
-        navigation={''}
-        number={2}
-        onPress={openCamera}
-        style={styles.button}
-      />
+      <ScanIcon navigation={navigation} style={styles.button} />
 
-      {imageData != null && <CategoryCard type={prediction} />}
+      {route.params != null && <CategoryCard type={prediction} navigation={navigation}/>}
     </View>
   );
 }

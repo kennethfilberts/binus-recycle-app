@@ -137,7 +137,7 @@ export default function Summary() {
     };
 
     getTotalTransaction();
-  }, [urlRecycledItem]);
+  }, []);
 
   useEffect(() => {
     const getTotalMissionDone = async () => {
@@ -153,7 +153,7 @@ export default function Summary() {
     };
 
     getTotalMissionDone();
-  }, [urlMissionDone]);
+  }, []);
 
   useEffect(() => {
     const getCoinSpent = async () => {
@@ -168,7 +168,7 @@ export default function Summary() {
     };
 
     getCoinSpent();
-  }, [urlEcoSpent]);
+  }, []);
 
   return (
     <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>

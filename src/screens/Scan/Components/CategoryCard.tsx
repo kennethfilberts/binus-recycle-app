@@ -13,6 +13,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 
 interface setParam {
   type: String;
+  navigation: any;
 }
 
 const getIcon = (type: String) => {
@@ -46,11 +47,14 @@ const getIcon = (type: String) => {
   }
 };
 
-export default function CategoryCard({type}: setParam) {
+export default function CategoryCard({navigation, type}: setParam) {
   const getType = getIcon(type);
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('Eco Hotspots');
+      }}>
       <View style={styles.body}>
         <View style={styles.image_box}>
           <View>{getType}</View>

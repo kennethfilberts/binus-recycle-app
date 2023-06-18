@@ -65,7 +65,7 @@ const HomeScreen = ({navigation}: any) => {
   }, []);
 
   const RenderScanIcon = useCallback(
-    () => <ScanIcon navigation={navigation} number={1} />,
+    () => <ScanIcon navigation={navigation} />,
     [navigation],
   );
 
