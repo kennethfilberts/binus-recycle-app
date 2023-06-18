@@ -53,8 +53,8 @@ export const PurchaseModal = ({
   RewardData,
   RewardImageData,
 }: PurchaseModalProps) => {
-  const [amount, setAmount] = useState(1);
-  const [isValid, setIsValid] = useState(true);
+  const [amount, setAmount] = useState(0);
+  const [isValid, setIsValid] = useState(false);
   const tempStudentPoints = useSelector(
     (state: RootState) => state.auth.StudentPoints,
   );
@@ -63,7 +63,7 @@ export const PurchaseModal = ({
 
   const handleModalClose = () => {
     onHandleVisibleModalPurchase(false);
-    setAmount(1);
+    setAmount(0);
   };
 
   useEffect(() => {
@@ -98,9 +98,13 @@ export const PurchaseModal = ({
   };
 
   const subtractAmount = () => {
-    if (amount > 1) {
+    if (amount > 0) {
       setAmount(amount - 1);
       checkAmount(amount - 1);
+
+      if (amount - 1 === 0) {
+        setIsValid(false);
+      }
     }
   };
 
