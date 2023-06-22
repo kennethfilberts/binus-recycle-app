@@ -7,7 +7,7 @@ interface AuthState {
   StudentEmail: string;
   StudentPassword: string;
   PasswordSalt: string;
-  StudentImage: Buffer | null;
+  StudentProgram: string;
   StudentPoints: number;
 }
 
@@ -18,7 +18,7 @@ const initialState: AuthState = {
   StudentEmail: '',
   StudentPassword: '',
   PasswordSalt: '',
-  StudentImage: null,
+  StudentProgram: '',
   StudentPoints: 0,
 };
 
@@ -33,7 +33,7 @@ const authSlice = createSlice({
       state.StudentEmail = action.payload.StudentEmail;
       state.StudentPassword = action.payload.StudentPassword;
       state.PasswordSalt = action.payload.PasswordSalt;
-      state.StudentImage = action.payload.StudentImage;
+      state.StudentProgram = action.payload.StudentProgram;
       state.StudentPoints = action.payload.StudentPoints;
     },
     setUserPoints: (state, action: PayloadAction<number>) => {

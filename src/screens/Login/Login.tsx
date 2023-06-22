@@ -115,8 +115,8 @@ const Login = ({navigation}: any) => {
       .post(
         `${BASE_URL}/api/v1/student/login`,
         {
-          email,
-          password,
+          studentEmail: email,
+          studentPassword: password,
         },
         {
           timeout: 2000,
