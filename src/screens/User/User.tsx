@@ -5,16 +5,19 @@ import {
   TouchableOpacity,
   StatusBar,
   Image,
+  Linking,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Info} from './components/Info';
 import {backgroundTheme, blackTheme} from '../../assets/colors';
 import {useSelector} from 'react-redux';
 import {RootState} from 'src/redux/Store';
 import {clearUserData} from '../../redux/reducers/AuthReducer';
 import {store} from '../../redux/Store';
+import {ChangePasswordModal} from './components/ChangePasswordModal/ChangePasswordModal';
 
 export default function User({navigation}: any) {
+  const [isVisible, setIsVisible] = useState(false);
   const studentName = useSelector((state: RootState) => state.auth.StudentName);
   const studentEmail = useSelector(
     (state: RootState) => state.auth.StudentEmail,
@@ -26,6 +29,7 @@ export default function User({navigation}: any) {
 
   const changePassword = () => {
     console.log('changePassword');
+    setIsVisible(true);
   };
 
   const setNotifications = () => {
@@ -34,6 +38,16 @@ export default function User({navigation}: any) {
 
   const supportCenter = () => {
     console.log('supportCenter');
+    const emailAddress = 'mailto:daniel.yohanes@binus.ac.id';
+
+    Linking.canOpenURL(emailAddress).then(valid => {
+      console.log(valid);
+      if (valid) {
+        return Linking.openURL(emailAddress);
+      } else {
+        console.log("Can't handle url:" + emailAddress);
+      }
+    });
   };
 
   const logOut = () => {
@@ -85,6 +99,11 @@ export default function User({navigation}: any) {
           <Info imageIcon={'logout'} itemText={'Log Out'} action={logOut} />
         </View>
       </View>
+
+      <ChangePasswordModal
+        isVisible={isVisible}
+        onHandleModalVisible={setIsVisible}
+      />
     </View>
   );
 }

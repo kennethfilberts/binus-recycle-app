@@ -21,3 +21,5 @@ export const shadowColorTheme = '#959da5';
 export const notchGreyTheme = '#D9D9D9';
 export const disabledHotPinkTheme = '#FFAACC';
 export const whiteTheme = '#F7F7F7';
+export const disabledRedTheme = '#FA9884';
+export const errorRedTheme = '#F45050';

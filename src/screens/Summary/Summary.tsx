@@ -49,6 +49,7 @@ export default function Summary() {
   const urlRecycledItem = `${BASE_URL}/api/v1/recycle/history/${studentId}`;
   const urlMissionDone = `${BASE_URL}/api/v1/daily-mission/history/${studentId}`;
   const urlEcoSpent = `${BASE_URL}/api/v1/purchase/history/${studentId}`;
+  const urlReward = `${BASE_URL}/api/v1/reward`;
 
   const [favouriteCategory, setFavouriteCategory] = useState<string>('');
   const [categoryIdList, setCategoryList] = useState<String[] | null>(null);
@@ -122,7 +123,7 @@ export default function Summary() {
   });
 
   useEffect(() => {
-    const getTotalTransaction = async () => {
+    const getTotalRecycled = async () => {
       const response = await axios.get(urlRecycledItem, {timeout: 3000});
       const data = response.data.data;
 
@@ -132,12 +133,17 @@ export default function Summary() {
           .toFixed(1),
       );
 
+      const totalCoins = data.reduce(
+        (sum: any, id: any) => sum + id.PointsObtained,
+        0,
+      );
+
       setRecycledItem(total);
-      setTotalTransaction(response.data.data.length);
+      setTotalCoinsEarned(totalCoins);
     };
 
-    getTotalTransaction();
-  }, []);
+    getTotalRecycled();
+  }, [urlRecycledItem, refreshing]);
 
   useEffect(() => {
     const getTotalMissionDone = async () => {
@@ -148,27 +154,36 @@ export default function Summary() {
         0,
       );
 
-      setTotalCoinsEarned(total);
+      setTotalCoinsEarned(previousTotal => previousTotal + total);
       setMissionDone(response.data.data.length);
     };
 
     getTotalMissionDone();
-  }, []);
+  }, [urlMissionDone, refreshing]);
 
   useEffect(() => {
     const getCoinSpent = async () => {
-      const response = await axios.get(urlEcoSpent, {timeout: 3000});
-      const data = response.data.data;
-      const total = data.reduce(
-        (sum: any, id: any) => sum + id.PurchaseAmount,
-        0,
-      );
+      const purchaseHistoryResponse = await axios.get(urlEcoSpent, {
+        timeout: 3000,
+      });
+      const rewardResponse = await axios.get(urlReward, {timeout: 3000});
+      const rewardData = rewardResponse.data.data;
+      const purchaseData = purchaseHistoryResponse.data.data;
+
+      const total = purchaseData.reduce((sum: number, purchase: any) => {
+        const getReward = rewardData.find(
+          (reward: any) => reward.RewardID === purchase.RewardID,
+        );
+
+        return sum + purchase.PurchaseAmount * getReward.RewardPoints;
+      }, 0);
 
       setTotalCoinsSpent(total);
+      setTotalTransaction(purchaseHistoryResponse.data.data.length);
     };
 
     getCoinSpent();
-  }, []);
+  }, [urlEcoSpent, refreshing, urlReward]);
 
   return (
     <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>
