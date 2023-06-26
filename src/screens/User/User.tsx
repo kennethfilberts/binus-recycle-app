@@ -85,12 +85,6 @@ export default function User({navigation}: any) {
           />
           <View style={styles.line} />
           <Info
-            imageIcon={'notif'}
-            itemText={'Set Notification'}
-            action={setNotifications}
-          />
-          <View style={styles.line} />
-          <Info
             imageIcon={'help'}
             itemText={'Support Center'}
             action={supportCenter}
@@ -171,7 +165,7 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     justifyContent: 'center',
     width: '80%',
-    gap: 15,
+    gap: 25,
   },
 
   line: {

@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
   value_text:{
     color: '#FFFFFF',
     fontFamily: 'Poppins-Bold',
-    fontSize: 23,
+    fontSize: 21,
     marginBottom: -5
   },
 

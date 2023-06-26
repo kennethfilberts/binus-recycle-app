@@ -10,8 +10,13 @@ import React, {useEffect, useState} from 'react';
 import {
   backgroundTheme,
   blackTheme,
+  darkPinkTheme,
+  disabledHotPinkTheme,
   hotPinkTheme,
+  lightGreenTheme,
   lightPinkTheme,
+  pastelGreenTheme,
+  redTheme,
 } from '../../assets/colors';
 import EarthImage from './components/images/earth';
 import Stats from './components/Stats';
@@ -41,6 +46,9 @@ export default function Summary() {
   const [plastic, setPlastic] = useState<Float>(0);
   const [metal, setMetal] = useState<Float>(0);
   const [glass, setGlass] = useState<Float>(0);
+  const [date, setDate] = useState<String | null>(null);
+  const [amount, setAmount] = useState<Float | null>(null);
+  const [category, setCategory] = useState<String | null>(null);
 
   const [refreshing, setRefreshing] = useState(false);
 
@@ -185,6 +193,40 @@ export default function Summary() {
     getCoinSpent();
   }, [urlEcoSpent, refreshing, urlReward]);
 
+  useEffect(() => {
+    const lastTransaction = async () => {
+      const response = await axios.get(urlRecycledItem, {timeout: 3000});
+      const data = response.data.data;
+
+      const lastData = data[data.length - 1];
+      const lastDate = new Date(lastData.RecyclingDate);
+      const dateOnly = lastDate.toLocaleDateString();
+
+      setDate(dateOnly);
+      setAmount(lastData.ItemWeight);
+
+      interface CategoryLabels {
+        [key: string]: string;
+      }
+
+      const lastCategory = lastData.CategoryID;
+      const labels: CategoryLabels = {
+        CT001: 'Cardboard',
+        CT002: 'Glass',
+        CT003: 'Metal',
+        CT004: 'Paper',
+        CT005: 'Plastic'
+      };
+
+      if(categoryIdList?.includes(lastCategory)){
+        const lastLabels: string = labels[lastCategory];
+        setCategory(lastLabels);
+      }
+    };
+
+    lastTransaction();
+  }, [urlRecycledItem]);
+
   return (
     <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>
       <ScrollView>
@@ -264,6 +306,16 @@ export default function Summary() {
             <View style={styles.last_row}>
               <EcoCoins spent={totalCoinsSpent} gathered={totalCoinsEarned} />
               <Favorite type={favouriteCategory} />
+            </View>
+
+            <View style={styles.last_transaction_container}>
+              <Text style={styles.sustain_stats_title}>Last Transaction</Text>
+
+              <View style={styles.stats_container}>
+                <Stats value={date} information={'Date'} />
+                <Stats value={`${amount} Kg`} information={'Amount'} />
+                <Stats value={category} information={'Category'} />
+              </View>
             </View>
           </View>
         </View>
@@ -363,6 +415,14 @@ const styles = StyleSheet.create({
   last_row: {
     flexDirection: 'row',
     gap: 10,
+    marginBottom: 20,
+  },
+
+  last_transaction_container: {
+    backgroundColor: lightGreenTheme,
+    width: '100%',
+    borderRadius: 15,
+    height: 120,
     marginBottom: 20,
   },
 });
