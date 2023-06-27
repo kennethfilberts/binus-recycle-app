@@ -84,7 +84,6 @@ export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
   const studentID = useSelector((state: RootState) => state.auth.StudentID);
   useEffect(() => {
     console.log(`${BASE_URL}/api/v1/daily-mission`);
-
     const fetchMissions = async () => {
       try {
         const response = await axios.get(`${BASE_URL}/api/v1/daily-mission`, {

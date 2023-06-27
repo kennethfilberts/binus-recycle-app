@@ -18,7 +18,6 @@ export default function Scan({navigation, route}: any) {
         type: 'image/jpeg',
         uri: route.params.route,
       });
-
       try {
         const response = await axios.post(urlModel, formData, {
           headers: {

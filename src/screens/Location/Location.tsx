@@ -47,6 +47,7 @@ export default function EcoHotspots() {
 
   useEffect(() => {
     console.log(`${BASE_URL}/api/v1/station`);
+
     const loadStations = async () => {
       try {
         const res = await axios.get<LocationResponse>(

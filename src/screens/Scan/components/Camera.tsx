@@ -14,7 +14,6 @@ const garbageClassification = async (imageData: any) => {
     type: 'image/jpeg',
     uri: imageData.uri,
   });
-
   try {
     const response = await axios.post(urlModel, formData, {
       headers: {

@@ -68,6 +68,7 @@ export const PurchaseModal = ({
 
   useEffect(() => {
     console.log(`${BASE_URL}/api/v1/student/${studentID}`);
+
     const fetchEcoCoins = async () => {
       try {
         const response = await axios.get(

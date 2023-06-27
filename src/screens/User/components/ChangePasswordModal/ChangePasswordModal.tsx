@@ -74,7 +74,6 @@ export const ChangePasswordModal = ({
 
   const changePassword = () => {
     console.log(`${BASE_URL}/api/v1/student/update-password`);
-
     setIsLoading(true);
     axios
       .post(

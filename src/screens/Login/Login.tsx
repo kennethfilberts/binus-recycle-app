@@ -109,7 +109,6 @@ const Login = ({navigation}: any) => {
     if (checkEmptyField() || checkEmail()) {
       return;
     }
-    console.log('test');
     setLoading(true);
     axios
       .post(

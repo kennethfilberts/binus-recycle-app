@@ -10,13 +10,9 @@ import React, {useEffect, useState} from 'react';
 import {
   backgroundTheme,
   blackTheme,
-  darkPinkTheme,
-  disabledHotPinkTheme,
   hotPinkTheme,
   lightGreenTheme,
   lightPinkTheme,
-  pastelGreenTheme,
-  redTheme,
 } from '../../assets/colors';
 import EarthImage from './components/images/earth';
 import Stats from './components/Stats';
@@ -215,17 +211,17 @@ export default function Summary() {
         CT002: 'Glass',
         CT003: 'Metal',
         CT004: 'Paper',
-        CT005: 'Plastic'
+        CT005: 'Plastic',
       };
 
-      if(categoryIdList?.includes(lastCategory)){
+      if (categoryIdList?.includes(lastCategory)) {
         const lastLabels: string = labels[lastCategory];
         setCategory(lastLabels);
       }
     };
 
     lastTransaction();
-  }, [urlRecycledItem]);
+  }, [categoryIdList, urlRecycledItem, refreshing]);
 
   return (
     <RefreshControl refreshing={refreshing} onRefresh={onRefresh}>

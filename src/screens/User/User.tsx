@@ -32,10 +32,6 @@ export default function User({navigation}: any) {
     setIsVisible(true);
   };
 
-  const setNotifications = () => {
-    console.log('setNotifications');
-  };
-
   const supportCenter = () => {
     console.log('supportCenter');
     const emailAddress = 'mailto:daniel.yohanes@binus.ac.id';
@@ -152,8 +148,9 @@ const styles = StyleSheet.create({
   info_card: {
     backgroundColor: 'white',
     alignItems: 'center',
-    justifyContent: 'center',
+    //justifyContent: 'center',
     marginTop: '5%',
+    paddingTop: '15%',
     width: '100%',
     height: '55%',
     borderTopStartRadius: 50,

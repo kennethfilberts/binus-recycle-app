@@ -22,7 +22,6 @@ const TreasureTroveCard = ({refreshing, isSuccess}: TreasureTroveCardProps) => {
 
   useEffect(() => {
     console.log(`${BASE_URL}/api/v1/student/${studentID}`);
-
     const fetchEcoCoins = async () => {
       try {
         const response = await axios.get(
