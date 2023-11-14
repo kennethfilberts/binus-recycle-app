@@ -9,6 +9,7 @@ import {BASE_URL} from '@env';
 export default function Scan({navigation, route}: any) {
   const [prediction, setPrediction] = useState<any>();
   const urlModel = `${BASE_URL}/api/v1/model`;
+  
 
   useEffect(() => {
     const garbageClassification = async () => {

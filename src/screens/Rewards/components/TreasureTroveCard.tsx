@@ -26,6 +26,7 @@ const TreasureTroveCard = ({refreshing, isSuccess}: TreasureTroveCardProps) => {
       try {
         const response = await axios.get(
           `${BASE_URL}/api/v1/student/${studentID}`,
+          
           {
             timeout: 2000,
           },

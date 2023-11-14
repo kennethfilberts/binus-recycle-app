@@ -54,6 +54,7 @@ export default function Summary() {
   const urlMissionDone = `${BASE_URL}/api/v1/daily-mission/history/${studentId}`;
   const urlEcoSpent = `${BASE_URL}/api/v1/purchase/history/${studentId}`;
   const urlReward = `${BASE_URL}/api/v1/reward`;
+  
 
   const [favouriteCategory, setFavouriteCategory] = useState<string>('');
   const [categoryIdList, setCategoryList] = useState<String[] | null>(null);

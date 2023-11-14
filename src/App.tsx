@@ -25,6 +25,8 @@ import ArrowIcon from './assets/icons/ArrowIcon';
 import Location from './screens/Location/Location';
 import FAQ from './screens/FAQ/FAQ';
 import Rewards from './screens/Rewards/Rewards';
+import Inventory from './screens/Inventory/Inventory';
+import {navigationRef} from './screens/RootNavigation';
 
 const HomeScreen = ({navigation}: any) => {
   const Tab = createBottomTabNavigator();
@@ -117,6 +119,7 @@ const App = () => {
   changeNavigationBarColor(backgroundTheme, true);
 
   const Stack = createStackNavigator();
+
   const RenderArrowIcon = useCallback(() => <ArrowIcon rotation={0} />, []);
 
   const [shouldRefresh, setShouldRefresh] = useState(false);
@@ -138,7 +141,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <PersistGate persistor={persistor}>
-        <NavigationContainer>
+        <NavigationContainer ref={navigationRef}>
           <Stack.Navigator
             initialRouteName="splash"
             screenOptions={{
@@ -172,6 +175,7 @@ const App = () => {
             <Stack.Screen name="Curiosity Oasis" component={FAQ} />
             <Stack.Screen name="Rewards" component={RenderRewards} />
             <Stack.Screen name="Scan" component={Scan} />
+            <Stack.Screen name="Inventory" component={Inventory} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

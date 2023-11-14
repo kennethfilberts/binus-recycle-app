@@ -7,6 +7,7 @@ import {
   FlatList,
   ScrollView,
   RefreshControl,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -22,6 +23,8 @@ import TreasureTroveCard from './components/TreasureTroveCard';
 import {RewardCard} from './components/RewardCard';
 import {PurchaseModal} from './components/PurchaseModal';
 import {LoadingModal} from './components/LoadingModal';
+import InventoryIcon from '../../assets/icons/InventoryIcon';
+import {navigate} from '../../screens/RootNavigation';
 
 interface RewardData {
   RewardID: string;
@@ -130,7 +133,16 @@ const Rewards = ({
         </ScrollView>
 
         <View style={styles.rewardCardContainer}>
-          <Text style={styles.headerText}>Rewards</Text>
+          <View style={styles.rewardHeaderContainer}>
+            <Text style={styles.headerText}>Rewards</Text>
+            <TouchableOpacity
+              activeOpacity={1}
+              onPress={() => {
+                navigate('Inventory');
+              }}>
+              <InventoryIcon />
+            </TouchableOpacity>
+          </View>
           <FlatList
             style={styles.rewardListContainer}
             data={rewards}
@@ -211,6 +223,12 @@ const styles = StyleSheet.create({
   },
   treasureTroveContainerScrollViewStyle: {
     height: '27%',
+  },
+  rewardHeaderContainer: {
+    width: '100%',
+    diplay: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });
 

@@ -7,6 +7,7 @@ const [imageData, setImageData] = useState<any>();
 const [prediction, setPrediction] = useState<any>();
 const urlModel = `${BASE_URL}/api/v1/model`;
 
+
 const garbageClassification = async (imageData: any) => {
   const formData = new FormData();
   formData.append('image', {
