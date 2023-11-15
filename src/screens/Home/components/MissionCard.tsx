@@ -89,7 +89,7 @@ export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
         const response = await axios.get(`${BASE_URL}/api/v1/daily-mission`, {
           timeout: 2000,
         });
-
+        
         setFirstMission(response.data.data[0]);
         setSecondMission(response.data.data[1]);
         setThirdMission(response.data.data[2]);

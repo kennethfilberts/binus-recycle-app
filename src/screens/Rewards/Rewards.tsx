@@ -228,6 +228,7 @@ const styles = StyleSheet.create({
     width: '100%',
     diplay: 'flex',
     flexDirection: 'row',
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
 });

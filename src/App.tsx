@@ -26,6 +26,7 @@ import Location from './screens/Location/Location';
 import FAQ from './screens/FAQ/FAQ';
 import Rewards from './screens/Rewards/Rewards';
 import Inventory from './screens/Inventory/Inventory';
+import RecycleHistory from './screens/RecycleHistory/RecycleHistory';
 import {navigationRef} from './screens/RootNavigation';
 
 const HomeScreen = ({navigation}: any) => {
@@ -176,6 +177,7 @@ const App = () => {
             <Stack.Screen name="Rewards" component={RenderRewards} />
             <Stack.Screen name="Scan" component={Scan} />
             <Stack.Screen name="Inventory" component={Inventory} />
+            <Stack.Screen name="Recycle History" component={RecycleHistory} />
           </Stack.Navigator>
         </NavigationContainer>
       </PersistGate>

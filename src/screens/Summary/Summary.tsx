@@ -5,6 +5,7 @@ import {
   ImageBackground,
   ScrollView,
   StatusBar,
+  TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {
@@ -30,8 +31,13 @@ import {RootState} from 'src/redux/Store';
 import axios from 'axios';
 import {RefreshControl} from 'react-native-gesture-handler';
 import {BASE_URL} from '@env';
+import HistoryIcon from '../../assets/icons/HistoryIcon';
 
-export default function Summary() {
+interface SummaryProps {
+  navigation: any;
+}
+
+export default function Summary({navigation}: SummaryProps) {
   const [recycledItem, setRecycledItem] = useState<Float | null>(null);
   const [totalTransaction, setTotalTransaction] = useState<Int32 | null>(null);
   const [missionDone, setMissionDone] = useState<Int32 | null>(null);
@@ -54,7 +60,6 @@ export default function Summary() {
   const urlMissionDone = `${BASE_URL}/api/v1/daily-mission/history/${studentId}`;
   const urlEcoSpent = `${BASE_URL}/api/v1/purchase/history/${studentId}`;
   const urlReward = `${BASE_URL}/api/v1/reward`;
-  
 
   const [favouriteCategory, setFavouriteCategory] = useState<string>('');
   const [categoryIdList, setCategoryList] = useState<String[] | null>(null);
@@ -84,6 +89,7 @@ export default function Summary() {
           `${BASE_URL}/api/v1/recycle/history/${studentId}/${id}`,
           {timeout: 3000},
         );
+
         const total =
           Math.round(
             response.data.data.reduce(
@@ -195,30 +201,14 @@ export default function Summary() {
       const response = await axios.get(urlRecycledItem, {timeout: 3000});
       const data = response.data.data;
 
-      const lastData = data[data.length - 1];
+      const lastData = data[0];
       const lastDate = new Date(lastData.RecyclingDate);
       const dateOnly = lastDate.toLocaleDateString();
 
       setDate(dateOnly);
       setAmount(lastData.ItemWeight);
 
-      interface CategoryLabels {
-        [key: string]: string;
-      }
-
-      const lastCategory = lastData.CategoryID;
-      const labels: CategoryLabels = {
-        CT001: 'Cardboard',
-        CT002: 'Glass',
-        CT003: 'Metal',
-        CT004: 'Paper',
-        CT005: 'Plastic',
-      };
-
-      if (categoryIdList?.includes(lastCategory)) {
-        const lastLabels: string = labels[lastCategory];
-        setCategory(lastLabels);
-      }
+      setCategory(lastData.CategoryName);
     };
 
     lastTransaction();
@@ -306,8 +296,16 @@ export default function Summary() {
             </View>
 
             <View style={styles.last_transaction_container}>
-              <Text style={styles.sustain_stats_title}>Last Transaction</Text>
-
+              <View style={styles.last_transaction_header_container}>
+                <Text style={styles.sustain_stats_title}>Last Transaction</Text>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => {
+                    navigation.navigate('Recycle History');
+                  }}>
+                  <HistoryIcon />
+                </TouchableOpacity>
+              </View>
               <View style={styles.stats_container}>
                 <Stats value={date} information={'Date'} />
                 <Stats value={`${amount} Kg`} information={'Amount'} />
@@ -327,6 +325,15 @@ const styles = StyleSheet.create({
     backgroundColor: backgroundTheme,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+
+  last_transaction_header_container: {
+    width: '100%',
+    diplay: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 10,
   },
 
   header_image: {

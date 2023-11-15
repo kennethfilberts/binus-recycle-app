@@ -1,6 +1,6 @@
 import {call, put, select, takeLatest} from 'redux-saga/effects';
 import {AxiosResponse} from 'axios';
-import {requestRecycleHistory} from '../request/AxiosPurchaseHistory';
+import {requestPurchaseHistory} from '../request/AxiosPurchaseHistory';
 import {getPurchaseHistorySuccess} from '../../reducers/PurchaseHistoryReducer';
 import {RootState} from '../../Store';
 
@@ -26,7 +26,7 @@ function* handlePurchaseHistory() {
     );
 
     const {data: response}: AxiosResponse<purchaseHistoryResponse> = yield call(
-      requestRecycleHistory,
+      requestPurchaseHistory,
       studentID,
     );
     const purchaseHistory: purchaseHistory[] = response.data.map(
