@@ -6,6 +6,7 @@ import {
   StatusBar,
   Image,
   Linking,
+  ScrollView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {Info} from './components/Info';
@@ -14,10 +15,14 @@ import {useSelector} from 'react-redux';
 import {RootState} from 'src/redux/Store';
 import {clearUserData} from '../../redux/reducers/AuthReducer';
 import {store} from '../../redux/Store';
-import {ChangePasswordModal} from './components/ChangePasswordModal/ChangePasswordModal';
+import {ChangePasswordModal} from './components/Modal/ChangePasswordModal';
+import {ChangeIPModal} from './components/Modal/ChangeIPModal';
 
 export default function User({navigation}: any) {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isChangePasswordModalVisible, setIsChangePasswordModalVisible] =
+    useState(false);
+  const [isChangeIPModalVisible, setIsChangeIPModalVisible] = useState(false);
+
   const studentName = useSelector((state: RootState) => state.auth.StudentName);
   const studentEmail = useSelector(
     (state: RootState) => state.auth.StudentEmail,
@@ -29,7 +34,12 @@ export default function User({navigation}: any) {
 
   const changePassword = () => {
     console.log('changePassword');
-    setIsVisible(true);
+    setIsChangePasswordModalVisible(true);
+  };
+
+  const changeIP = () => {
+    console.log('changePassword');
+    setIsChangeIPModalVisible(true);
   };
 
   const supportCenter = () => {
@@ -52,48 +62,67 @@ export default function User({navigation}: any) {
     store.dispatch(clearUserData());
   };
 
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  console.log(isSuperUser);
+
   return (
     <View style={styles.body}>
-      <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
-      <View>
-        <TouchableOpacity style={styles.picture_profile}>
-          <Image
-            source={require('../../assets/images/userSprite.png')}
-            style={styles.userImage}
-          />
-        </TouchableOpacity>
-      </View>
+      <ScrollView style={styles.scrollViewContainer}>
+        <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
+        <View style={styles.userSectionContainer}>
+          <TouchableOpacity style={styles.picture_profile}>
+            <Image
+              source={require('../../assets/images/userSprite.png')}
+              style={styles.userImage}
+            />
+          </TouchableOpacity>
 
-      <Text style={styles.text_bold}>{studentName}</Text>
-      <Text style={styles.text_normal}>{studentEmail}</Text>
-      <Text style={styles.text_normal}>{studentID}</Text>
+          <Text style={styles.text_bold}>{studentName}</Text>
+          <Text style={styles.text_normal}>{studentEmail}</Text>
+          <Text style={styles.text_normal}>{studentID}</Text>
 
-      <View style={styles.eco_card}>
-        <Text style={styles.eco_text}>{studentPoints} Eco-Coins</Text>
-      </View>
-
-      <View style={styles.info_card}>
-        <View style={styles.info_card_detail}>
-          <Info
-            imageIcon={'pass'}
-            itemText={'Change Password'}
-            action={changePassword}
-          />
-          <View style={styles.line} />
-          <Info
-            imageIcon={'help'}
-            itemText={'Support Center'}
-            action={supportCenter}
-          />
-          <View style={styles.line} />
-          <Info imageIcon={'logout'} itemText={'Log Out'} action={logOut} />
+          <View style={styles.eco_card}>
+            <Text style={styles.eco_text}>{studentPoints} Eco-Coins</Text>
+          </View>
         </View>
-      </View>
 
-      <ChangePasswordModal
-        isVisible={isVisible}
-        onHandleModalVisible={setIsVisible}
-      />
+        <View style={styles.info_card}>
+          <View style={styles.info_card_detail}>
+            <Info
+              imageIcon={'pass'}
+              itemText={'Change Password'}
+              action={changePassword}
+            />
+            <View style={styles.line} />
+            <Info
+              imageIcon={'help'}
+              itemText={'Support Center'}
+              action={supportCenter}
+            />
+            <View style={styles.line} />
+            <Info imageIcon={'logout'} itemText={'Log Out'} action={logOut} />
+            {isSuperUser && (
+              <>
+                <View style={styles.line} />
+                <Info
+                  imageIcon={'editIP'}
+                  itemText={'Change IP Address'}
+                  action={changeIP}
+                />
+              </>
+            )}
+          </View>
+        </View>
+
+        <ChangePasswordModal
+          isVisible={isChangePasswordModalVisible}
+          onHandleModalVisible={setIsChangePasswordModalVisible}
+        />
+        <ChangeIPModal
+          isVisible={isChangeIPModalVisible}
+          onHandleModalVisible={setIsChangeIPModalVisible}
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -104,6 +133,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: backgroundTheme,
+    width: '100%',
+  },
+
+  userSectionContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  scrollViewContainer: {
+    width: '100%',
   },
 
   picture_profile: {
@@ -148,9 +188,9 @@ const styles = StyleSheet.create({
   info_card: {
     backgroundColor: 'white',
     alignItems: 'center',
-    //justifyContent: 'center',
     marginTop: '5%',
-    paddingTop: '15%',
+    paddingTop: '10%',
+    paddingBottom: '10%',
     width: '100%',
     height: '55%',
     borderTopStartRadius: 50,

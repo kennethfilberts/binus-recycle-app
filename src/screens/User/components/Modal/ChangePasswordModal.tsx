@@ -72,12 +72,19 @@ export const ChangePasswordModal = ({
     setIsLoading(false);
   };
 
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
+
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
+
   const changePassword = () => {
-    console.log(`${BASE_URL}/api/v1/student/update-password`);
+    console.log(`${baseUrl}/api/v1/student/update-password`);
     setIsLoading(true);
     axios
       .post(
-        `${BASE_URL}/api/v1/student/update-password`,
+        `${baseUrl}/api/v1/student/update-password`,
         {
           studentEmail,
           oldPassword,
@@ -116,6 +123,8 @@ export const ChangePasswordModal = ({
                   <TextField
                     onHandleTextInput={setOldPassword}
                     placeholder={'Old Password'}
+                    isSecureTextEntry={false}
+                    editPlaceholder={false}
                   />
                 </View>
                 <View style={styles.textField}>
@@ -123,6 +132,8 @@ export const ChangePasswordModal = ({
                   <TextField
                     onHandleTextInput={setNewPassword}
                     placeholder={'New Password'}
+                    isSecureTextEntry={false}
+                    editPlaceholder={false}
                   />
                 </View>
                 <View style={styles.textField}>
@@ -132,6 +143,8 @@ export const ChangePasswordModal = ({
                   <TextField
                     onHandleTextInput={setConfirmNewPassword}
                     placeholder={'Confirm New Password'}
+                    isSecureTextEntry={false}
+                    editPlaceholder={false}
                   />
                 </View>
               </View>

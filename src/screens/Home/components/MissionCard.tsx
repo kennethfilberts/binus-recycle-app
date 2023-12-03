@@ -82,14 +82,22 @@ export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
   const [isLoading, setLoading] = useState(true);
 
   const studentID = useSelector((state: RootState) => state.auth.StudentID);
+
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
+
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
+
   useEffect(() => {
-    console.log(`${BASE_URL}/api/v1/daily-mission`);
+    console.log(`${baseUrl}/api/v1/daily-mission`);
     const fetchMissions = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/v1/daily-mission`, {
+        const response = await axios.get(`${baseUrl}/api/v1/daily-mission`, {
           timeout: 2000,
         });
-        
+
         setFirstMission(response.data.data[0]);
         setSecondMission(response.data.data[1]);
         setThirdMission(response.data.data[2]);
@@ -99,14 +107,14 @@ export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
     };
 
     fetchMissions();
-  }, [refreshing]);
+  }, [baseUrl, refreshing]);
 
   useEffect(() => {
-    console.log(`${BASE_URL}/api/v1/daily-mission/progress/${studentID}`);
+    console.log(`${baseUrl}/api/v1/daily-mission/progress/${studentID}`);
     const fetchMissionProgress = async () => {
       try {
         const res = await axios.get(
-          `${BASE_URL}/api/v1/daily-mission/progress/${studentID}`,
+          `${baseUrl}/api/v1/daily-mission/progress/${studentID}`,
           {
             timeout: 2000,
           },
@@ -124,7 +132,7 @@ export const MissionCard = ({navigation, refreshing}: MissionCardProps) => {
       fetchMissionProgress();
       setLoading(false);
     }
-  }, [firstMission, secondMission, studentID, thirdMission]);
+  }, [baseUrl, firstMission, secondMission, studentID, thirdMission]);
 
   return (
     <View style={styles.missionOuterContainer}>

@@ -23,12 +23,20 @@ export const Header = ({navigation, refreshing}: HeaderProps) => {
 
   const [studentPoints, setStudentPoints] = useState(tempStudentPoints);
 
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
+
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
+
   useEffect(() => {
-    console.log(`${BASE_URL}/api/v1/student/${studentID}`);
+    console.log(`${baseUrl}/api/v1/student/${studentID}`);
+
     const fetchEcoCoins = async () => {
       try {
         const response = await axios.get(
-          `${BASE_URL}/api/v1/student/${studentID}`,
+          `${baseUrl}/api/v1/student/${studentID}`,
           {
             timeout: 2000,
           },
@@ -42,7 +50,7 @@ export const Header = ({navigation, refreshing}: HeaderProps) => {
     };
 
     fetchEcoCoins();
-  }, [studentID, refreshing]);
+  }, [studentID, refreshing, baseUrl]);
 
   return (
     <View style={styles.headerOuterContainer}>

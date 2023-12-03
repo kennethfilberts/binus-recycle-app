@@ -11,9 +11,10 @@ import {
 } from 'react-native';
 import {
   backgroundTheme,
-  darkGreenTheme,
   redTheme,
   greyTheme,
+  lightGreenTheme,
+  blackTheme,
 } from './../../assets/colors';
 import EmailIcon from './../../assets/icons/EmailIcon';
 import LockIcon from './../../assets/icons/LockIcon';
@@ -104,6 +105,12 @@ const Login = ({navigation}: any) => {
     setError(true);
     setLoading(false);
   };
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
+
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
 
   const handleLogin = () => {
     if (checkEmptyField() || checkEmail()) {
@@ -112,7 +119,7 @@ const Login = ({navigation}: any) => {
     setLoading(true);
     axios
       .post(
-        `${BASE_URL}/api/v1/student/login`,
+        `${baseUrl}/api/v1/student/login`,
         {
           studentEmail: email,
           studentPassword: password,
@@ -132,16 +139,27 @@ const Login = ({navigation}: any) => {
   return (
     <View style={styles.outerContainer}>
       <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
-      <Image
+      {/* <Image
         source={require('../../assets/images/logo.png')}
         style={styles.logo}
-      />
+      /> */}
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../../assets/images/bloombox-logo.png')}
+          style={styles.logoNew}
+          resizeMode="contain"
+        />
+      </View>
+
       <View
         style={[
           styles.loginContainer,
           isKeyboardActive && styles.keyboardOnFocus,
         ]}>
-        <Text style={styles.textHeader}>Login</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.textHeader}>WELCOME</Text>
+          <Text style={styles.subTextHeader}>Sign in to continue</Text>
+        </View>
         {isError && <Text style={styles.warningText}>{warningText}</Text>}
         <TextFieldArea
           fieldHeader={'Email'}
@@ -186,9 +204,23 @@ const styles = StyleSheet.create({
     aspectRatio: 1,
     borderRadius: 1000,
   },
+  logoContainer: {
+    height: '10%',
+    width: '85%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoNew: {
+    width: '100%',
+  },
   keyboardOnFocus: {
     height: '65%',
     marginTop: 0,
+  },
+  headerContainer: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    height: '20%',
   },
   loginContainer: {
     marginTop: 20,
@@ -199,11 +231,16 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontFamily: 'Poppins-Bold',
-    color: 'black',
-    fontSize: 24,
+    color: blackTheme,
+    fontSize: 30,
+  },
+  subTextHeader: {
+    fontFamily: 'Poppins-Bold',
+    color: blackTheme,
+    fontSize: 15,
   },
   loginButton: {
-    backgroundColor: darkGreenTheme,
+    backgroundColor: lightGreenTheme,
     alignItems: 'center',
     justifyContent: 'center',
     width: '80%',

@@ -20,13 +20,20 @@ const TreasureTroveCard = ({refreshing, isSuccess}: TreasureTroveCardProps) => {
   const studentID = useSelector((state: RootState) => state.auth.StudentID);
   const [studentPoints, setStudentPoints] = useState(tempStudentPoints);
 
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
+
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
+
   useEffect(() => {
-    console.log(`${BASE_URL}/api/v1/student/${studentID}`);
+    console.log(`${baseUrl}/api/v1/student/${studentID}`);
     const fetchEcoCoins = async () => {
       try {
         const response = await axios.get(
-          `${BASE_URL}/api/v1/student/${studentID}`,
-          
+          `${baseUrl}/api/v1/student/${studentID}`,
+
           {
             timeout: 2000,
           },
@@ -40,7 +47,7 @@ const TreasureTroveCard = ({refreshing, isSuccess}: TreasureTroveCardProps) => {
     };
 
     fetchEcoCoins();
-  }, [studentID, refreshing, isSuccess]);
+  }, [studentID, refreshing, isSuccess, baseUrl]);
 
   return (
     <View style={style.rewardCardBackground}>

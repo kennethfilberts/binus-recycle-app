@@ -9,6 +9,7 @@ interface AuthState {
   PasswordSalt: string;
   StudentProgram: string;
   StudentPoints: number;
+  IsSuperUser: boolean;
 }
 
 const initialState: AuthState = {
@@ -20,6 +21,7 @@ const initialState: AuthState = {
   PasswordSalt: '',
   StudentProgram: '',
   StudentPoints: 0,
+  IsSuperUser: false,
 };
 
 const authSlice = createSlice({
@@ -35,6 +37,7 @@ const authSlice = createSlice({
       state.PasswordSalt = action.payload.PasswordSalt;
       state.StudentProgram = action.payload.StudentProgram;
       state.StudentPoints = action.payload.StudentPoints;
+      state.IsSuperUser = action.payload.IsSuperUser;
     },
     setUserPoints: (state, action: PayloadAction<number>) => {
       state.StudentPoints = action.payload;

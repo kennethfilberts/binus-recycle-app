@@ -5,11 +5,20 @@ import CategoryCard from './components/CategoryCard';
 import ScanIcon from '../../assets/icons/ScanIcon';
 import axios from 'axios';
 import {BASE_URL} from '@env';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/Store';
 
 export default function Scan({navigation, route}: any) {
   const [prediction, setPrediction] = useState<any>();
-  const urlModel = `${BASE_URL}/api/v1/model`;
-  
+
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
+
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
+
+  const urlModel = `${baseUrl}/api/v1/model`;
 
   useEffect(() => {
     const garbageClassification = async () => {

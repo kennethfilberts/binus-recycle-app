@@ -16,16 +16,23 @@ export default function Splash({navigation}: any) {
       } else {
         navigation.replace('login');
       }
-    }, 0);
+    }, 1000);
   }, [navigation, token]);
 
   return (
     <View style={styles.body}>
       <StatusBar backgroundColor={backgroundTheme} barStyle="dark-content" />
-      <Image
+      {/* <Image
         source={require('../assets/images/logo.png')}
         style={styles.logo}
-      />
+      /> */}
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../assets/images/bloombox-logo.png')}
+          style={styles.logoNew}
+          resizeMode="contain"
+        />
+      </View>
     </View>
   );
 }
@@ -37,10 +44,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#FFFCF5',
   },
-
   logo: {
     width: 150,
     height: 150,
     borderRadius: 75,
+  },
+  logoContainer: {
+    height: '10%',
+    width: '85%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoNew: {
+    width: '100%',
   },
 });

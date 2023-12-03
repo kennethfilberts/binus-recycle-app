@@ -5,6 +5,7 @@ import authReducer from './reducers/AuthReducer';
 import rewardsReducer from './reducers/Rewards';
 import purchaseHistoryReducer from './reducers/PurchaseHistoryReducer';
 import recycleHistoryReducer from './reducers/RecycleHistoryReducer';
+import baseUrlReducer from './reducers/BaseUrlReducer';
 import createSagaMiddleware from 'redux-saga';
 import rewardsSaga from './saga/handler/RewardsSaga';
 import purchaseHistorySaga from './saga/handler/PurchaseHistorySaga';
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   rewards: rewardsReducer,
   purchaseHistory: purchaseHistoryReducer,
   recycleHistory: recycleHistoryReducer,
+  baseUrl: baseUrlReducer,
 });
 
 const persistedReducer = persistReducer(

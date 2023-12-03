@@ -5,6 +5,7 @@ import PassIcon from './icons/PassIcon';
 import NotifIcon from './icons/NotifIcon';
 import HelpIcon from './icons/HelpIcon';
 import LogoutIcon from './icons/LogoutIcon';
+import EditIPIcon from './icons/EditIPIcon';
 
 interface InfoProps {
   imageIcon: string;
@@ -22,6 +23,8 @@ const getIcons = (image: string) => {
       return <HelpIcon />;
     case 'logout':
       return <LogoutIcon />;
+    case 'editIP':
+      return <EditIPIcon />;
   }
 };
 

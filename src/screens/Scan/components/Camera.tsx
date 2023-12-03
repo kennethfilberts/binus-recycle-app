@@ -5,6 +5,7 @@ import {BASE_URL} from '@env';
 
 const [imageData, setImageData] = useState<any>();
 const [prediction, setPrediction] = useState<any>();
+
 const urlModel = `${BASE_URL}/api/v1/model`;
 
 const garbageClassification = async (imageData: any) => {

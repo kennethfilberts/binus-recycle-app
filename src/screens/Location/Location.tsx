@@ -17,6 +17,8 @@ import {
   lightGreenTheme,
 } from '../../assets/colors';
 import {BASE_URL} from '@env';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../redux/Store';
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -45,13 +47,22 @@ export default function EcoHotspots() {
   const [Location3, setLocation3] = useState<Location[]>([]);
   const [isLoading, setLoading] = useState(true);
 
+  console.log(BASE_URL);
+
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
+
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
+
   useEffect(() => {
-    console.log(`${BASE_URL}/api/v1/station`);
+    console.log(`${baseUrl}/api/v1/station`);
 
     const loadStations = async () => {
       try {
         const res = await axios.get<LocationResponse>(
-          `${BASE_URL}/api/v1/station`,
+          `${baseUrl}/api/v1/station`,
           {
             timeout: 2000,
           },
@@ -78,7 +89,7 @@ export default function EcoHotspots() {
     };
 
     loadStations();
-  }, []);
+  }, [baseUrl]);
 
   return (
     <ScrollView>

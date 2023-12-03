@@ -1,12 +1,7 @@
-import * as React from "react"
-import Svg, { Rect, Path } from "react-native-svg"
+import * as React from 'react';
+import Svg, {Rect, Path} from 'react-native-svg';
 const NotifIcon = (props: any) => (
-  <Svg
-    width={45}
-    height={45}
-    fill="none"
-    {...props}
-  >
+  <Svg width={45} height={45} fill="none" {...props}>
     <Rect width={45} height={45} fill="#FE7A6B" rx={10} />
     <Path
       fill="#F5F5FC"
@@ -15,5 +10,5 @@ const NotifIcon = (props: any) => (
       clipRule="evenodd"
     />
   </Svg>
-)
-export default NotifIcon
+);
+export default NotifIcon;

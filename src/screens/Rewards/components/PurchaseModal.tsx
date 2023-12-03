@@ -66,13 +66,19 @@ export const PurchaseModal = ({
     setAmount(0);
   };
 
-  useEffect(() => {
-    console.log(`${BASE_URL}/api/v1/student/${studentID}`);
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
 
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
+
+  useEffect(() => {
+    console.log(`${baseUrl}/api/v1/student/${studentID}`);
     const fetchEcoCoins = async () => {
       try {
         const response = await axios.get(
-          `${BASE_URL}/api/v1/student/${studentID}`,
+          `${baseUrl}/api/v1/student/${studentID}`,
           {
             timeout: 2000,
           },
@@ -87,7 +93,7 @@ export const PurchaseModal = ({
     if (isPurchaseModalVisible) {
       fetchEcoCoins();
     }
-  }, [isPurchaseModalVisible, studentID]);
+  }, [baseUrl, isPurchaseModalVisible, studentID]);
 
   const checkAmount = (currAmount: number) => {
     setIsValid(currAmount * (RewardData?.RewardPoints ?? 0) <= studentPoints);
@@ -115,7 +121,7 @@ export const PurchaseModal = ({
     console.log(studentID, RewardData?.RewardID, amount);
     axios
       .post(
-        `${BASE_URL}/api/v1/purchase`,
+        `${baseUrl}/api/v1/purchase`,
         {
           studentID,
           rewardID: RewardData?.RewardID,

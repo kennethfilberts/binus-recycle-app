@@ -55,11 +55,19 @@ export default function Summary({navigation}: SummaryProps) {
   const [refreshing, setRefreshing] = useState(false);
 
   const studentId = useSelector((state: RootState) => state.auth.StudentID);
-  const urlCategory = `${BASE_URL}/api/v1/category`;
-  const urlRecycledItem = `${BASE_URL}/api/v1/recycle/history/${studentId}`;
-  const urlMissionDone = `${BASE_URL}/api/v1/daily-mission/history/${studentId}`;
-  const urlEcoSpent = `${BASE_URL}/api/v1/purchase/history/${studentId}`;
-  const urlReward = `${BASE_URL}/api/v1/reward`;
+
+  const isSuperUser = useSelector((state: RootState) => state.auth.IsSuperUser);
+  const superUserBaseUrl = useSelector(
+    (state: RootState) => state.baseUrl.BaseUrl,
+  );
+
+  const baseUrl = isSuperUser ? superUserBaseUrl : BASE_URL;
+
+  const urlCategory = `${baseUrl}/api/v1/category`;
+  const urlRecycledItem = `${baseUrl}/api/v1/recycle/history/${studentId}`;
+  const urlMissionDone = `${baseUrl}/api/v1/daily-mission/history/${studentId}`;
+  const urlEcoSpent = `${baseUrl}/api/v1/purchase/history/${studentId}`;
+  const urlReward = `${baseUrl}/api/v1/reward`;
 
   const [favouriteCategory, setFavouriteCategory] = useState<string>('');
   const [categoryIdList, setCategoryList] = useState<String[] | null>(null);
@@ -86,7 +94,7 @@ export default function Summary({navigation}: SummaryProps) {
     const getTotalCategoryWeight = () => {
       categoryIdList?.map(async (id: String) => {
         const response = await axios.get(
-          `${BASE_URL}/api/v1/recycle/history/${studentId}/${id}`,
+          `${baseUrl}/api/v1/recycle/history/${studentId}/${id}`,
           {timeout: 3000},
         );
 
